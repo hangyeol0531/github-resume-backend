@@ -13,8 +13,8 @@ export class GithubClientService {
     const result = await octokit.request(
       'GET /repos/{owner}/{repo}/languages',
       {
-        owner: 'hangyeol0531',
-        repo: 'slack-status-api',
+        owner,
+        repo,
       },
     );
 
