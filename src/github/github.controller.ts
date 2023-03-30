@@ -5,12 +5,8 @@ import { GithubService } from './github.service';
 export class GithubController {
   constructor(private readonly githubService: GithubService) {}
 
-  @Get(':id/:repositoryName')
-  async getInformation(
-    @Param('id') id,
-    @Param('repositoryName') repositoryName,
-  ) {
-    const data = await this.githubService.getLanguages(id, repositoryName);
-    return data;
+  @Get('/user/:userId')
+  async getInformation(@Param('userId') userId) {
+    return this.githubService.getInformation(userId);
   }
 }

@@ -3,21 +3,19 @@ import { Octokit } from 'octokit';
 
 @Injectable()
 export class GithubClientService {
-  constructor() {}
+  private readonly octokit;
 
-  async getLanguages(owner: string, repo: string) {
-    const octokit = new Octokit({
+  constructor() {
+    this.octokit = new Octokit({
       auth: process.env.GITHUB_TOKEN,
     });
+  }
 
-    const result = await octokit.request(
-      'GET /repos/{owner}/{repo}/languages',
-      {
-        owner,
-        repo,
-      },
-    );
+  async getRepositories(username: string) {
+    return this.octokit.request(`GET /users/${username}/repos`);
+  }
 
-    return result;
+  async getLanguages(owner: string, repo: string) {
+    return this.octokit.request(`GET /repos/${owner}/${repo}/languages`);
   }
 }

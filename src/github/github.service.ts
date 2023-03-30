@@ -5,11 +5,19 @@ import { GithubClientService } from '../github-client/github-client-service';
 export class GithubService {
   constructor(private readonly githubApiService: GithubClientService) {}
 
-  async getLanguages(id: string, repositoryName: string) {
-    const { data } = await this.githubApiService.getLanguages(
-      id,
-      repositoryName,
+  async getInformation(userId: string) {
+    const { data: repositories } = await this.githubApiService.getRepositories(
+      userId,
     );
-    return data;
+    const repositoryNames = repositories.map((repository) => repository.name);
+
+    const languages = (
+      await Promise.all(
+        repositoryNames.map((repositoryName) =>
+          this.githubApiService.getLanguages(userId, repositoryName),
+        ),
+      )
+    ).map(({ data }) => data);
+    console.log(languages);
   }
 }
