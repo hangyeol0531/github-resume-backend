@@ -1,6 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Octokit } from 'octokit';
 import { graphql } from '@octokit/graphql';
+import { ConfigType } from '@nestjs/config';
+import githubConfig from '../config/githubConfig';
 
 @Injectable()
 export class GithubClientService {
@@ -8,14 +10,16 @@ export class GithubClientService {
 
   private readonly graphqlClient;
 
-  constructor() {
+  constructor(
+    @Inject(githubConfig.KEY) private config: ConfigType<typeof githubConfig>,
+  ) {
     this.octokit = new Octokit({
-      auth: process.env.GITHUB_TOKEN,
+      auth: this.config.auth.token,
     });
 
     this.graphqlClient = graphql.defaults({
       headers: {
-        authorization: `token ${process.env.GITHUB_TOKEN}`,
+        authorization: `token ${this.config.auth.token}`,
       },
     });
   }
