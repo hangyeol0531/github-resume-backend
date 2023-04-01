@@ -14,7 +14,7 @@ export class GithubClientService {
     @Inject(githubConfig.KEY) private config: ConfigType<typeof githubConfig>,
   ) {
     this.octokit = new Octokit({
-      auth: this.config.auth.token,
+      auth: `${this.config.auth.token}`,
     });
 
     this.graphqlClient = graphql.defaults({
@@ -34,16 +34,16 @@ export class GithubClientService {
 
   async getPinnedRepositories(username: string) {
     const query = `{
-      user(login: "GabrielBB") {
-        pinnedItems(first: 6, types: REPOSITORY) {
-          nodes {
+    user(login: "${username}") {
+      pinnedItems(first: 6, types: REPOSITORY) {
+        nodes {
           ... on Repository {
-              ${username}
-            }
+            name
           }
         }
       }
-    };`;
+    }
+  }`;
     return this.graphqlClient(query);
   }
 }

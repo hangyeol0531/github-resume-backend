@@ -11,8 +11,6 @@ export class UserGithubInformationDto {
 
   commitCount: string;
 
-  introduceContent: string;
-
   project: {
     name: string;
     description: string;
