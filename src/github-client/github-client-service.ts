@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { graphql } from '@octokit/graphql';
 import { ConfigType } from '@nestjs/config';
 import githubConfig from '../config/githubConfig';
-import { IPinnedRepository, IRepository } from './types';
+import { IPinnedRepository, IRepository, IUser } from './types';
 
 @Injectable()
 export class GithubClientService {
@@ -16,6 +16,18 @@ export class GithubClientService {
         authorization: `token ${this.config.auth.token}`,
       },
     });
+  }
+
+  async getUserInformation(userId: string): Promise<IUser> {
+    return this.graphqlClient(`{
+      user(login: "${userId}"){
+        name
+        avatarUrl
+        bio
+        email
+        websiteUrl
+      }
+    }`);
   }
 
   async getRepositoriesAndLanguages(userId: string): Promise<IRepository> {

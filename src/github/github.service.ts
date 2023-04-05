@@ -1,40 +1,73 @@
 import { Injectable } from '@nestjs/common';
 import { GithubClientService } from '../github-client/github-client-service';
-import { UserGithubInformationDto } from './dto/user-github-information.dto';
 import {
-  IPinnedRepository,
-  ILanguageRate,
-  ILanguageSize,
-  IProject,
-} from '../github-client/types';
+  LanguageRateDto,
+  RepositoryDto,
+  UserDto,
+  UserGithubInformationDto,
+} from './dto/user-github-information.dto';
+import { IPinnedRepository, ILanguageSize } from '../github-client/types';
 
 @Injectable()
 export class GithubService {
   constructor(private readonly githubApiService: GithubClientService) {}
 
-  async getInformation(userId: string): Promise<Object> {
-    const {
-      user: {
-        repositories: { nodes: repositoryLanguages },
-      },
-    } = await this.githubApiService.getRepositoriesAndLanguages(userId);
+  async getInformation(userId: string): Promise<UserGithubInformationDto> {
+    const user: UserDto = await this.getUser(userId);
 
+    const [repositories, languages]: [
+      repositories: RepositoryDto[],
+      languages: LanguageRateDto[],
+    ] = await Promise.all([
+      this.getPinnedRepositories(userId),
+      this.getLanguageRates(userId),
+    ]);
+
+    return {
+      user,
+      repositories,
+      languages,
+    };
+  }
+
+  private async getUser(userId: string): Promise<UserDto> {
+    const { user } = await this.githubApiService.getUserInformation(userId);
+    return {
+      name: user.name,
+      introduce: user.bio,
+      imageUrl: user.avatarUrl,
+      contact: {
+        email: user.email,
+        websiteUrl: user.websiteUrl,
+      },
+    };
+  }
+
+  private async getPinnedRepositories(
+    userId: string,
+  ): Promise<RepositoryDto[]> {
     const {
       user: { pinnedItems },
     }: IPinnedRepository = await this.githubApiService.getPinnedRepositories(
       userId,
     );
 
-    const project: IProject[] = pinnedItems.edges.map(
-      ({ node: pinnedItem }) => ({
-        name: pinnedItem.name,
-        description: pinnedItem.description,
-        url: pinnedItem.url,
-        language: pinnedItem?.primaryLanguage?.name,
-        starCount: pinnedItem.stargazerCount,
-        owner: pinnedItem.owner.login,
-      }),
-    );
+    return pinnedItems.edges.map(({ node: pinnedItem }) => ({
+      name: pinnedItem.name,
+      description: pinnedItem.description,
+      url: pinnedItem.url,
+      language: pinnedItem?.primaryLanguage?.name,
+      starCount: pinnedItem.stargazerCount,
+      owner: pinnedItem.owner.login,
+    }));
+  }
+
+  private async getLanguageRates(userId: string) {
+    const {
+      user: {
+        repositories: { nodes: repositoryLanguages },
+      },
+    } = await this.githubApiService.getRepositoriesAndLanguages(userId);
 
     const languageSizes: ILanguageSize[] = [];
     repositoryLanguages.forEach((repositoryLanguage) => {
@@ -46,20 +79,12 @@ export class GithubService {
       });
     });
 
-    const languageRates: ILanguageRate[] =
-      this.getLanguageRatesFromRepositories(languageSizes);
-
-    return {
-      user: null,
-      commitCount: null,
-      project,
-      language: languageRates,
-    };
+    return GithubService.getLanguageRatesFromRepositories(languageSizes);
   }
 
-  private getLanguageRatesFromRepositories(
+  private static getLanguageRatesFromRepositories(
     languageSizes: ILanguageSize[],
-  ): ILanguageRate[] {
+  ): LanguageRateDto[] {
     const languagesMap = languageSizes.reduce((languageMap, languageSize) => {
       if (!languageMap.has(languageSize.name)) {
         languageMap.set(languageSize.name, languageSize.size);
@@ -76,7 +101,7 @@ export class GithubService {
       0,
     );
 
-    const languageRates: ILanguageRate[] = [];
+    const languageRates: LanguageRateDto[] = [];
     languagesMap.forEach((value, key) => {
       const rate = Number(((value / totalSize) * 100).toFixed(1));
       if (rate === 0) return;

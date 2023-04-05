@@ -45,16 +45,13 @@ export interface ILanguageSize {
   name: string;
   size: number;
 }
-export interface ILanguageRate {
-  name: string;
-  rate: number;
-}
 
-export interface IProject {
-  name: string;
-  description: string;
-  url: string;
-  language: string;
-  starCount: number;
-  owner: string;
+export interface IUser {
+  user: {
+    name: string;
+    avatarUrl: string;
+    bio: string;
+    email: string;
+    websiteUrl: string;
+  };
 }

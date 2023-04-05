@@ -1,19 +1,29 @@
-import { ILanguageRate, IProject } from '../../github-client/types';
-
-export class UserGithubInformationDto {
-  user: {
-    name: string;
-    introduce: string;
-    imageUrl: string;
-    contact: {
-      phone: string;
-      email: string;
-    };
+export interface UserDto {
+  name: string;
+  introduce: string;
+  imageUrl: string;
+  contact: {
+    email: string;
+    websiteUrl: string;
   };
+}
 
-  commitCount: string;
+export interface RepositoryDto {
+  name: string;
+  description: string;
+  url: string;
+  language: string;
+  starCount: number;
+  owner: string;
+}
 
-  project: IProject[];
+export interface LanguageRateDto {
+  name: string;
+  rate: number;
+}
 
-  languages: ILanguageRate[];
+export interface UserGithubInformationDto {
+  user: UserDto;
+  repositories: RepositoryDto[];
+  languages: LanguageRateDto[];
 }
