@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { graphql } from '@octokit/graphql';
 import { ConfigType } from '@nestjs/config';
 import githubConfig from '../config/githubConfig';
+import { IPinnedRepository, IRepository } from './types';
 
 @Injectable()
 export class GithubClientService {
@@ -17,7 +18,7 @@ export class GithubClientService {
     });
   }
 
-  async getRepositoriesAndLanguages(userId: string) {
+  async getRepositoriesAndLanguages(userId: string): Promise<IRepository> {
     return this.graphqlClient(`{
     user(login: "${userId}") {
       repositories(first: 100) {
@@ -37,7 +38,7 @@ export class GithubClientService {
   }`);
   }
 
-  async getPinnedRepositories(userId: string) {
+  async getPinnedRepositories(userId: string): Promise<IPinnedRepository> {
     return this.graphqlClient(`{
     user(login: "${userId}") {
       pinnedItems(first: 6, types: REPOSITORY) {
