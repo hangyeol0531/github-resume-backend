@@ -1,3 +1,5 @@
+import { ILanguageRate, IProject } from '../../github-client/types';
+
 export class UserGithubInformationDto {
   user: {
     name: string;
@@ -11,15 +13,7 @@ export class UserGithubInformationDto {
 
   commitCount: string;
 
-  project: {
-    name: string;
-    description: string;
-    language: string;
-    starCount: number;
-  };
+  project: IProject[];
 
-  languages: {
-    name: string;
-    rate: number;
-  }[];
+  languages: ILanguageRate[];
 }

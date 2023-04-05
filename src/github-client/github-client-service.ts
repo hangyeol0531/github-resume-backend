@@ -47,6 +47,10 @@ export class GithubClientService {
             ... on Repository {
               name
               description
+              primaryLanguage {
+                name
+              }
+              stargazerCount
               url
               owner {
                 login

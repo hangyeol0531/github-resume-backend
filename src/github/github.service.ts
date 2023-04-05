@@ -5,21 +5,36 @@ import {
   IPinnedRepository,
   ILanguageRate,
   ILanguageSize,
+  IProject,
 } from '../github-client/types';
 
 @Injectable()
 export class GithubService {
   constructor(private readonly githubApiService: GithubClientService) {}
 
-  async getInformation(userId: string): Promise<UserGithubInformationDto> {
+  async getInformation(userId: string): Promise<Object> {
     const {
       user: {
         repositories: { nodes: repositoryLanguages },
       },
     } = await this.githubApiService.getRepositoriesAndLanguages(userId);
 
-    const pinnedRepository: IPinnedRepository =
-      await this.githubApiService.getPinnedRepositories(userId);
+    const {
+      user: { pinnedItems },
+    }: IPinnedRepository = await this.githubApiService.getPinnedRepositories(
+      userId,
+    );
+
+    const project: IProject[] = pinnedItems.edges.map(
+      ({ node: pinnedItem }) => ({
+        name: pinnedItem.name,
+        description: pinnedItem.description,
+        url: pinnedItem.url,
+        language: pinnedItem?.primaryLanguage?.name,
+        starCount: pinnedItem.stargazerCount,
+        owner: pinnedItem.owner.login,
+      }),
+    );
 
     const languageSizes: ILanguageSize[] = [];
     repositoryLanguages.forEach((repositoryLanguage) => {
@@ -33,7 +48,13 @@ export class GithubService {
 
     const languageRates: ILanguageRate[] =
       this.getLanguageRatesFromRepositories(languageSizes);
-    return null;
+
+    return {
+      user: null,
+      commitCount: null,
+      project,
+      language: languageRates,
+    };
   }
 
   private getLanguageRatesFromRepositories(
@@ -57,9 +78,11 @@ export class GithubService {
 
     const languageRates: ILanguageRate[] = [];
     languagesMap.forEach((value, key) => {
+      const rate = Number(((value / totalSize) * 100).toFixed(1));
+      if (rate === 0) return;
       languageRates.push({
+        rate,
         name: key,
-        rate: Number(((value / totalSize) * 100).toFixed(2)),
       });
     });
     return languageRates;
