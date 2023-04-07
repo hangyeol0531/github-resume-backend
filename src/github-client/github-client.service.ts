@@ -1,25 +1,37 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { graphql } from '@octokit/graphql';
 import { ConfigType } from '@nestjs/config';
+import { HttpService } from '@nestjs/axios';
 import githubConfig from '../config/githubConfig';
 import { IPinnedRepository, IRepository, IUser } from './types';
 
 @Injectable()
 export class GithubClientService {
-  private readonly graphqlClient;
+  private readonly githubGraphqlClient;
 
   constructor(
+    private readonly githubClient: HttpService,
     @Inject(githubConfig.KEY) private config: ConfigType<typeof githubConfig>,
   ) {
-    this.graphqlClient = graphql.defaults({
+    this.githubGraphqlClient = graphql.defaults({
       headers: {
         authorization: `token ${this.config.auth.token}`,
       },
     });
   }
 
+  async getExistsUser(userId: string): Promise<boolean> {
+    try {
+      const { status }: { status: number } =
+        await this.githubClient.axiosRef.get(userId);
+      return status === 200;
+    } catch (e) {
+      return false;
+    }
+  }
+
   async getUserInformation(userId: string): Promise<IUser> {
-    return this.graphqlClient(`{
+    return this.githubGraphqlClient(`{
       user(login: "${userId}"){
         name
         avatarUrl
@@ -31,7 +43,7 @@ export class GithubClientService {
   }
 
   async getRepositoriesAndLanguages(userId: string): Promise<IRepository> {
-    return this.graphqlClient(`{
+    return this.githubGraphqlClient(`{
     user(login: "${userId}") {
       repositories(first: 100) {
         nodes {
@@ -51,7 +63,7 @@ export class GithubClientService {
   }
 
   async getPinnedRepositories(userId: string): Promise<IPinnedRepository> {
-    return this.graphqlClient(`{
+    return this.githubGraphqlClient(`{
     user(login: "${userId}") {
       pinnedItems(first: 6, types: REPOSITORY) {
         edges {

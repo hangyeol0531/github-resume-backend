@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { GithubClientService } from '../github-client/github-client-service';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { GithubClientService } from '../github-client/github-client.service';
 import {
   LanguageRateDto,
   RepositoryDto,
@@ -10,15 +10,19 @@ import { IPinnedRepository, ILanguageSize } from '../github-client/types';
 
 @Injectable()
 export class GithubService {
-  constructor(private readonly githubApiService: GithubClientService) {}
+  constructor(private readonly githubClientService: GithubClientService) {}
 
   async getInformation(userId: string): Promise<UserGithubInformationDto> {
-    const user: UserDto = await this.getUser(userId);
-
-    const [repositories, languages]: [
+    const existsUser = await this.githubClientService.getExistsUser(userId);
+    if (!existsUser) {
+      throw new NotFoundException('유저가 존재하지 않습니다.');
+    }
+    const [user, repositories, languages]: [
+      user: UserDto,
       repositories: RepositoryDto[],
       languages: LanguageRateDto[],
     ] = await Promise.all([
+      this.getUser(userId),
       this.getPinnedRepositories(userId),
       this.getLanguageRates(userId),
     ]);
@@ -31,8 +35,9 @@ export class GithubService {
   }
 
   private async getUser(userId: string): Promise<UserDto> {
-    const { user } = await this.githubApiService.getUserInformation(userId);
+    const { user } = await this.githubClientService.getUserInformation(userId);
     return {
+      id: userId,
       name: user.name,
       introduce: user.bio,
       imageUrl: user.avatarUrl,
@@ -40,7 +45,7 @@ export class GithubService {
         email: user.email,
         websiteUrl: user.websiteUrl,
       },
-    };
+    } as UserDto;
   }
 
   private async getPinnedRepositories(
@@ -48,18 +53,21 @@ export class GithubService {
   ): Promise<RepositoryDto[]> {
     const {
       user: { pinnedItems },
-    }: IPinnedRepository = await this.githubApiService.getPinnedRepositories(
+    }: IPinnedRepository = await this.githubClientService.getPinnedRepositories(
       userId,
     );
 
-    return pinnedItems.edges.map(({ node: pinnedItem }) => ({
-      name: pinnedItem.name,
-      description: pinnedItem.description,
-      url: pinnedItem.url,
-      language: pinnedItem?.primaryLanguage?.name,
-      starCount: pinnedItem.stargazerCount,
-      owner: pinnedItem.owner.login,
-    }));
+    return pinnedItems.edges.map(
+      ({ node: pinnedItem }) =>
+        ({
+          name: pinnedItem.name,
+          description: pinnedItem.description,
+          url: pinnedItem.url,
+          language: pinnedItem?.primaryLanguage?.name,
+          starCount: pinnedItem.stargazerCount,
+          owner: pinnedItem.owner.login,
+        } as RepositoryDto),
+    );
   }
 
   private async getLanguageRates(userId: string) {
@@ -67,7 +75,7 @@ export class GithubService {
       user: {
         repositories: { nodes: repositoryLanguages },
       },
-    } = await this.githubApiService.getRepositoriesAndLanguages(userId);
+    } = await this.githubClientService.getRepositoriesAndLanguages(userId);
 
     const languageSizes: ILanguageSize[] = [];
     repositoryLanguages.forEach((repositoryLanguage) => {
@@ -75,7 +83,7 @@ export class GithubService {
         languageSizes.push({
           name: language.node.name,
           size: language.size,
-        });
+        } as ILanguageSize);
       });
     });
 
@@ -108,7 +116,7 @@ export class GithubService {
       languageRates.push({
         rate,
         name: key,
-      });
+      } as LanguageRateDto);
     });
     return languageRates;
   }

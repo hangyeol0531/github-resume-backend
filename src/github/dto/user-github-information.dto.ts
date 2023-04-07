@@ -1,4 +1,5 @@
 export interface UserDto {
+  id: string;
   name: string;
   introduce: string;
   imageUrl: string;
