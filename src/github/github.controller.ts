@@ -1,4 +1,10 @@
-import { Controller, Get, Param, UsePipes } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  UseInterceptors,
+  UsePipes,
+} from '@nestjs/common';
 import {
   ApiOkResponse,
   ApiOperation,
@@ -8,6 +14,7 @@ import {
 import { GithubService } from './github.service';
 import { GithubUserValidationPipe } from './github.user.validation.pipe';
 import { UserGithubInformationDto } from './dto/user-github-information.dto';
+import { CacheInterceptor } from '../interceptors/cache.interceptor';
 
 @ApiTags('github')
 @Controller('github')
@@ -16,6 +23,7 @@ export class GithubController {
 
   @Get('/user/:userId')
   @UsePipes(GithubUserValidationPipe)
+  @UseInterceptors(CacheInterceptor)
   @ApiOperation({ summary: 'get User Github Information' })
   @ApiOkResponse({
     type: UserGithubInformationDto,
