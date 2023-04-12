@@ -1,6 +1,5 @@
 import { Controller, Get, Param, UsePipes } from '@nestjs/common';
 import {
-  ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
