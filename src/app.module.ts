@@ -1,4 +1,5 @@
 import {
+  CacheInterceptor,
   CacheModule,
   MiddlewareConsumer,
   Module,
@@ -6,12 +7,14 @@ import {
 } from '@nestjs/common';
 import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
 import * as redisStore from 'cache-manager-ioredis';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GithubModule } from './github/github.module';
 import githubConfig from './config/githubConfig';
 import { LoggerMiddleware } from './logger/logger-middleware';
 import redisConfig from './config/redisConfig';
+import { HttpCacheInterceptor } from './interceptors/http-cache.interceptor';
 
 @Module({
   imports: [
@@ -34,7 +37,13 @@ import redisConfig from './config/redisConfig';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: HttpCacheInterceptor,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {
