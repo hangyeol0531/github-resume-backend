@@ -1,36 +1,48 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { GithubClientService } from '../github-client/github-client.service';
 import {
+  ContributionDto,
   LanguageRateDto,
+  MonthlyContributionHistory,
   RepositoryDto,
   UserDto,
   UserGithubInformationDto,
 } from './dto/user-github-information.dto';
 import { IPinnedRepository, ILanguageSize } from '../github-client/types';
+import { YearAndMonthDateDto } from '../common/dto/common.dto';
+import { CommonService } from '../common/common.service';
 
 @Injectable()
 export class GithubService {
-  constructor(private readonly githubClientService: GithubClientService) {}
+  constructor(
+    private readonly githubClientService: GithubClientService,
+    private readonly commonService: CommonService,
+  ) {}
+
+  private readonly recentMonthRange = 5;
 
   async getInformation(userId: string): Promise<UserGithubInformationDto> {
     const existsUser = await this.githubClientService.getExistsUser(userId);
     if (!existsUser) {
       throw new NotFoundException('유저가 존재하지 않습니다.');
     }
-    const [user, repositories, languages]: [
+    const [user, repositories, languages, contributions]: [
       user: UserDto,
       repositories: RepositoryDto[],
       languages: LanguageRateDto[],
+      contributions: ContributionDto,
     ] = await Promise.all([
       this.getUser(userId),
       this.getPinnedRepositories(userId),
       this.getLanguageRates(userId),
+      this.getContributions(userId),
     ]);
 
     return {
       user,
       repositories,
       languages,
+      contributions,
     };
   }
 
@@ -83,11 +95,50 @@ export class GithubService {
         languageSizes.push({
           name: language.node.name,
           size: language.size,
-        } as ILanguageSize);
+        });
       });
     });
 
     return GithubService.getLanguageRatesFromRepositories(languageSizes);
+  }
+
+  private async getContributions(userId: string): Promise<ContributionDto> {
+    const lastYear: number = new Date().getFullYear() - 1;
+    const {
+      user: {
+        contributionsCollection: { totalCommitContributions: commitCount },
+      },
+    } = await this.githubClientService.getLastYearCommitCount(userId, lastYear);
+
+    const monthRangeDateDtos: YearAndMonthDateDto[] =
+      this.commonService.getYearAndMonthDateDto(this.recentMonthRange);
+
+    const monthlyContributionHistories: MonthlyContributionHistory[] =
+      await Promise.all(
+        monthRangeDateDtos.map(async (dateDto) => {
+          const {
+            user: {
+              contributionsCollection: {
+                contributionCalendar: { totalContributions: contributionCount },
+              },
+            },
+          } = await this.githubClientService.getContributionCount(
+            userId,
+            dateDto,
+          );
+          return {
+            contributionCount,
+            date: dateDto,
+          };
+        }),
+      );
+
+    return {
+      lastYear,
+      commitCount,
+      monthlyContributionHistories,
+      recentMonthRange: this.recentMonthRange,
+    };
   }
 
   private static getLanguageRatesFromRepositories(

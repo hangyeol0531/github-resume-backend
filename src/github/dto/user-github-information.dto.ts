@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { YearAndMonthDateDto } from '../../common/dto/common.dto';
 
 class ContactDto {
   @ApiProperty({ description: '유저 이메일' })
@@ -53,6 +54,31 @@ export class LanguageRateDto {
   rate: number;
 }
 
+export class MonthlyContributionHistory {
+  @ApiProperty({ description: '해당 날짜' })
+  date: YearAndMonthDateDto;
+
+  @ApiProperty({ description: '기여 횟수' })
+  contributionCount: number;
+}
+
+export class ContributionDto {
+  @ApiProperty({ description: '작년 월' })
+  lastYear: number;
+
+  @ApiProperty({ description: '작년 커밋 개수' })
+  commitCount: number;
+
+  @ApiProperty({ description: '최근 N개월 범위' })
+  recentMonthRange: number;
+
+  @ApiProperty({
+    description: '월간 활동 정보',
+    type: MonthlyContributionHistory,
+    isArray: true,
+  })
+  monthlyContributionHistories: MonthlyContributionHistory[];
+}
 export class UserGithubInformationDto {
   @ApiProperty({ description: '유저의 정보' })
   user: UserDto;
@@ -70,4 +96,9 @@ export class UserGithubInformationDto {
     isArray: true,
   })
   languages: LanguageRateDto[];
+
+  @ApiProperty({
+    description: '기여(활동) 정보',
+  })
+  contributions: ContributionDto;
 }

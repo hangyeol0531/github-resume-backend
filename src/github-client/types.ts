@@ -55,3 +55,21 @@ export interface IUser {
     websiteUrl: string;
   };
 }
+
+export interface ICommitCount {
+  user: {
+    contributionsCollection: {
+      totalCommitContributions: number;
+    };
+  };
+}
+
+export interface IContributionCount {
+  user: {
+    contributionsCollection: {
+      contributionCalendar: {
+        totalContributions: number;
+      };
+    };
+  };
+}

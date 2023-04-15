@@ -3,7 +3,14 @@ import { graphql } from '@octokit/graphql';
 import { ConfigType } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import githubConfig from '../config/githubConfig';
-import { IPinnedRepository, IRepository, IUser } from './types';
+import {
+  ICommitCount,
+  IContributionCount,
+  IPinnedRepository,
+  IRepository,
+  IUser,
+} from './types';
+import { YearAndMonthDateDto } from '../common/dto/common.dto';
 
 @Injectable()
 export class GithubClientService {
@@ -85,5 +92,41 @@ export class GithubClientService {
       }
     }
   }`);
+  }
+
+  async getLastYearCommitCount(
+    userId: string,
+    lastYear: number,
+  ): Promise<ICommitCount> {
+    return this.githubGraphqlClient(`{
+    user(login: "${userId}") {
+        contributionsCollection(from: "${lastYear}-01-01T00:00:00Z", to: "${
+      lastYear + 1
+    }-01-01T00:00:00Z"){
+          totalCommitContributions
+        }
+      }
+    }`);
+  }
+
+  async getContributionCount(
+    userId: string,
+    { month, year }: YearAndMonthDateDto,
+  ): Promise<IContributionCount> {
+    const isDecember: boolean = month === 12;
+    const nextYear: number = isDecember ? year + 1 : year;
+    const nextMonth: number = isDecember ? 1 : month + 1;
+    return this.githubGraphqlClient(`{
+      user(login: "${userId}") {
+        contributionsCollection(
+        from: "${year}-${`0${month}`.slice(-2)}-01T00:00:00Z"
+        to: "${nextYear}-${`0${nextMonth}`.slice(-2)}-01T00:00:00Z"
+        ) {
+          contributionCalendar {
+            totalContributions
+          }
+        }
+      }
+    }`);
   }
 }
