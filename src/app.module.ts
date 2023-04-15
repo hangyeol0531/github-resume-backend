@@ -37,13 +37,7 @@ import { HttpCacheInterceptor } from './interceptors/http-cache.interceptor';
     }),
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: HttpCacheInterceptor,
-    },
-  ],
+  providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {
