@@ -21,7 +21,7 @@ export class GithubService {
 
   private readonly recentMonthRange = 5;
 
-  async getInformation(userId: string): Promise<UserGithubInformationDto> {
+  async getUserInformation(userId: string): Promise<UserGithubInformationDto> {
     const existsUser = await this.githubClientService.getExistsUser(userId);
     if (!existsUser) {
       throw new NotFoundException('유저가 존재하지 않습니다.');

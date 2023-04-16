@@ -32,9 +32,9 @@ export class GithubController {
     name: 'userId',
     type: 'string',
   })
-  async getInformation(
+  async getUserInformation(
     @Param('userId') userId,
   ): Promise<UserGithubInformationDto> {
-    return this.githubService.getInformation(userId);
+    return this.githubService.getUserInformation(userId);
   }
 }
