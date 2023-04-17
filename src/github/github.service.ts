@@ -169,6 +169,6 @@ export class GithubService {
         name: key,
       } as LanguageRateDto);
     });
-    return languageRates;
+    return languageRates.sort((a, b) => b.rate - a.rate);
   }
 }
