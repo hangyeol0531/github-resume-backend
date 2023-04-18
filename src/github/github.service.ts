@@ -57,6 +57,7 @@ export class GithubService {
         email: user.email,
         websiteUrl: user.websiteUrl,
       },
+      repositoryCount: user?.repositories?.totalCount,
     } as UserDto;
   }
 

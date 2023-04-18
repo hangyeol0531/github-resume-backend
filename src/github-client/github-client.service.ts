@@ -45,6 +45,9 @@ export class GithubClientService {
         bio
         email
         websiteUrl
+        repositories {
+          totalCount
+        }
       }
     }`);
   }

@@ -24,6 +24,9 @@ export class UserDto {
 
   @ApiProperty({ description: '유저 연락처' })
   contact: ContactDto;
+
+  @ApiProperty({ description: '레파지토리 개수' })
+  repositoryCount: number;
 }
 
 export class RepositoryDto {

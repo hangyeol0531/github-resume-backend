@@ -53,6 +53,9 @@ export interface IUser {
     bio: string;
     email: string;
     websiteUrl: string;
+    repositories: {
+      totalCount: number;
+    };
   };
 }
 
