@@ -19,6 +19,13 @@ interface IPinnedRepositoryItem {
   primaryLanguage: {
     name: string;
   };
+  repositoryTopics: {
+    nodes: {
+      topic: {
+        name: string;
+      };
+    }[];
+  };
 }
 
 export interface IPinnedRepository {

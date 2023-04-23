@@ -48,6 +48,12 @@ export class RepositoryDto {
   @ApiProperty({ description: '레파지토리 포크 개수' })
   forkCount: number;
 
+  @ApiProperty({
+    description: '레파지토리 토픽(태그) 정보',
+    isArray: true,
+  })
+  topics: string[];
+
   @ApiProperty({ description: '레파지토리 주인' })
   owner: string;
 }

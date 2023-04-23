@@ -70,18 +70,22 @@ export class GithubService {
       userId,
     );
 
-    return pinnedItems.edges.map(
-      ({ node: pinnedItem }) =>
-        ({
-          name: pinnedItem.name,
-          description: pinnedItem.description,
-          url: pinnedItem.url,
-          language: pinnedItem?.primaryLanguage?.name,
-          starCount: pinnedItem.stargazerCount,
-          forkCount: pinnedItem.forkCount,
-          owner: pinnedItem.owner.login,
-        } as RepositoryDto),
-    );
+    return pinnedItems.edges.map(({ node: pinnedItem }) => {
+      const topics: string[] = pinnedItem.repositoryTopics.nodes.map(
+        ({ topic }) => topic.name,
+      );
+
+      return {
+        topics,
+        name: pinnedItem.name,
+        description: pinnedItem.description,
+        url: pinnedItem.url,
+        language: pinnedItem?.primaryLanguage?.name,
+        starCount: pinnedItem.stargazerCount,
+        forkCount: pinnedItem.forkCount,
+        owner: pinnedItem.owner.login,
+      } as RepositoryDto;
+    });
   }
 
   private async getLanguageRates(userId: string) {

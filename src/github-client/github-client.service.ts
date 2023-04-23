@@ -84,6 +84,13 @@ export class GithubClientService {
               primaryLanguage {
                 name
               }
+              repositoryTopics(first: 100){
+                nodes {
+                  topic{
+                    name
+                  }
+                }
+              }
               stargazerCount
               forkCount
               url
