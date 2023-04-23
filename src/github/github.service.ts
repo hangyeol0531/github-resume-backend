@@ -78,6 +78,7 @@ export class GithubService {
           url: pinnedItem.url,
           language: pinnedItem?.primaryLanguage?.name,
           starCount: pinnedItem.stargazerCount,
+          forkCount: pinnedItem.forkCount,
           owner: pinnedItem.owner.login,
         } as RepositoryDto),
     );

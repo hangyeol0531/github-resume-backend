@@ -45,6 +45,9 @@ export class RepositoryDto {
   @ApiProperty({ description: '레파지토리 스타 개수' })
   starCount: number;
 
+  @ApiProperty({ description: '레파지토리 포크 개수' })
+  forkCount: number;
+
   @ApiProperty({ description: '레파지토리 주인' })
   owner: string;
 }
