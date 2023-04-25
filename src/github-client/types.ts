@@ -11,6 +11,7 @@ interface IPinnedRepositoryItem {
   name: string;
   description: string;
   url: string;
+  homepageUrl: string;
   stargazerCount: number;
   forkCount: number;
   owner: {

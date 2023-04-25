@@ -94,6 +94,7 @@ export class GithubClientService {
               stargazerCount
               forkCount
               url
+              homepageUrl
               owner {
                 login
               }

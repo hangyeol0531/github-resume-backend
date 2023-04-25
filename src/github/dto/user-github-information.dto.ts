@@ -39,6 +39,9 @@ export class RepositoryDto {
   @ApiProperty({ description: '레파지토리 주소' })
   url: string;
 
+  @ApiProperty({ description: '홈페이지 주소' })
+  homepageUrl: string;
+
   @ApiProperty({ description: '레파지토리 메인 언어' })
   language: string;
 

@@ -80,6 +80,7 @@ export class GithubService {
         name: pinnedItem.name,
         description: pinnedItem.description,
         url: pinnedItem.url,
+        homepageUrl: pinnedItem.homepageUrl,
         language: pinnedItem?.primaryLanguage?.name,
         starCount: pinnedItem.stargazerCount,
         forkCount: pinnedItem.forkCount,
