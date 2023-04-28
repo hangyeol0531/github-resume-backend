@@ -112,9 +112,7 @@ export class GithubClientService {
   ): Promise<ICommitCount> {
     return this.githubGraphqlClient(`{
     user(login: "${userId}") {
-          contributionsCollection(from: "${year}-01-01T00:00:00Z", to: "${
-      year + 1
-    }-01-01T00:00:00Z"){
+          contributionsCollection(from: "${year}-01-01T00:00:00Z", to: "${year}-12-31T23:59:59Z"){
           totalCommitContributions
         }
       }
