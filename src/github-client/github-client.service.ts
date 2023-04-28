@@ -106,14 +106,14 @@ export class GithubClientService {
   }`);
   }
 
-  async getLastYearCommitCount(
+  async getNowYearCommitCount(
     userId: string,
-    lastYear: number,
+    year: number,
   ): Promise<ICommitCount> {
     return this.githubGraphqlClient(`{
     user(login: "${userId}") {
-        contributionsCollection(from: "${lastYear}-01-01T00:00:00Z", to: "${
-      lastYear + 1
+          contributionsCollection(from: "${year}-01-01T00:00:00Z", to: "${
+      year + 1
     }-01-01T00:00:00Z"){
           totalCommitContributions
         }

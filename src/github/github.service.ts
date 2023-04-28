@@ -110,12 +110,12 @@ export class GithubService {
   }
 
   private async getContributions(userId: string): Promise<ContributionDto> {
-    const lastYear: number = new Date().getFullYear() - 1;
+    const year: number = new Date().getFullYear();
     const {
       user: {
         contributionsCollection: { totalCommitContributions: commitCount },
       },
-    } = await this.githubClientService.getLastYearCommitCount(userId, lastYear);
+    } = await this.githubClientService.getNowYearCommitCount(userId, year);
 
     const monthRangeDateDtos: YearAndMonthDateDto[] =
       this.commonService.getYearAndMonthDateDto(this.recentMonthRange);
@@ -141,7 +141,7 @@ export class GithubService {
       );
 
     return {
-      lastYear,
+      year,
       commitCount,
       monthlyContributionHistories,
       recentMonthRange: this.recentMonthRange,

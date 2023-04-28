@@ -78,10 +78,10 @@ export class MonthlyContributionHistory {
 }
 
 export class ContributionDto {
-  @ApiProperty({ description: '작년 월' })
-  lastYear: number;
+  @ApiProperty({ description: '이번 년도' })
+  year: number;
 
-  @ApiProperty({ description: '작년 커밋 개수' })
+  @ApiProperty({ description: '이번 년도 커밋 개수' })
   commitCount: number;
 
   @ApiProperty({ description: '최근 N개월 범위' })
