@@ -1,3 +1,5 @@
+import { LatestCommittedRepositoryDto } from '../github/dto/user-github-information.dto';
+
 export interface IRepositoryLanguage {
   edges: {
     node: {
@@ -82,6 +84,14 @@ export interface IContributionCount {
       contributionCalendar: {
         totalContributions: number;
       };
+    };
+  };
+}
+
+export interface ILatestPushedRepository {
+  user: {
+    repositories: {
+      nodes: LatestCommittedRepositoryDto[];
     };
   };
 }

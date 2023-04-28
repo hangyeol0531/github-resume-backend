@@ -3,6 +3,7 @@ import { GithubClientService } from '../github-client/github-client.service';
 import {
   ContributionDto,
   LanguageRateDto,
+  LatestCommittedRepositoryDto,
   MonthlyContributionHistory,
   RepositoryDto,
   UserDto,
@@ -58,7 +59,7 @@ export class GithubService {
         websiteUrl: user.websiteUrl,
       },
       repositoryCount: user?.repositories?.totalCount,
-    } as UserDto;
+    };
   }
 
   private async getPinnedRepositories(
@@ -85,7 +86,7 @@ export class GithubService {
         starCount: pinnedItem.stargazerCount,
         forkCount: pinnedItem.forkCount,
         owner: pinnedItem.owner.login,
-      } as RepositoryDto;
+      };
     });
   }
 
@@ -140,10 +141,19 @@ export class GithubService {
         }),
       );
 
+    const {
+      user: {
+        repositories: {
+          nodes: [latestCommittedRepository],
+        },
+      },
+    } = await this.githubClientService.getLatestPushedRepository(userId);
+
     return {
       year,
       commitCount,
       monthlyContributionHistories,
+      latestCommittedRepository,
       recentMonthRange: this.recentMonthRange,
     };
   }
@@ -174,7 +184,7 @@ export class GithubService {
       languageRates.push({
         rate,
         name: key,
-      } as LanguageRateDto);
+      });
     });
     return languageRates.sort((a, b) => b.rate - a.rate);
   }

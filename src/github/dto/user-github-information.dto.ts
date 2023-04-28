@@ -77,6 +77,14 @@ export class MonthlyContributionHistory {
   contributionCount: number;
 }
 
+export class LatestCommittedRepositoryDto {
+  @ApiProperty({ description: '레파지토리 이름' })
+  name: string;
+
+  @ApiProperty({ description: '레파지토리 url' })
+  url: string;
+}
+
 export class ContributionDto {
   @ApiProperty({ description: '이번 년도' })
   year: number;
@@ -86,6 +94,12 @@ export class ContributionDto {
 
   @ApiProperty({ description: '최근 N개월 범위' })
   recentMonthRange: number;
+
+  @ApiProperty({
+    description: '최근에 커밋한 레파지토리',
+    type: LatestCommittedRepositoryDto,
+  })
+  latestCommittedRepository: LatestCommittedRepositoryDto;
 
   @ApiProperty({
     description: '월간 활동 정보',

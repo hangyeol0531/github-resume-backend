@@ -6,6 +6,7 @@ import githubConfig from '../config/githubConfig';
 import {
   ICommitCount,
   IContributionCount,
+  ILatestPushedRepository,
   IPinnedRepository,
   IRepository,
   IUser,
@@ -138,5 +139,21 @@ export class GithubClientService {
         }
       }
     }`);
+  }
+
+  async getLatestPushedRepository(
+    userId: string,
+  ): Promise<ILatestPushedRepository> {
+    return this.githubGraphqlClient(`{
+        user(login: "${userId}") {
+          repositories(first: 1, ownerAffiliations: [OWNER, COLLABORATOR], orderBy: {field: PUSHED_AT, direction: DESC}) {
+            nodes {
+              name
+              url
+            }
+          }
+        }
+      }
+   `);
   }
 }
