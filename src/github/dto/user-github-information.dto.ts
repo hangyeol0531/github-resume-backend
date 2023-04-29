@@ -1,5 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { YearAndMonthDateDto } from '../../common/dto/common.dto';
+import SocialAccountProvider from '../../github-client/types/SocialAccountProvider';
+
+export class SocialAccountDto {
+  @ApiProperty({
+    description: '소셜 타입',
+    enum: SocialAccountProvider,
+  })
+  name: SocialAccountProvider;
+
+  @ApiProperty({
+    description: '소셜 계정 url',
+  })
+  url: string;
+}
 
 class ContactDto {
   @ApiProperty({ description: '유저 이메일' })
@@ -7,6 +21,13 @@ class ContactDto {
 
   @ApiProperty({ description: '유저 사이트' })
   websiteUrl: string;
+
+  @ApiProperty({
+    description: '유저 소셜 계정들',
+    type: SocialAccountDto,
+    isArray: true,
+  })
+  socialAccounts: SocialAccountDto[];
 }
 
 export class UserDto {

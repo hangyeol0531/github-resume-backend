@@ -27,6 +27,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'class-methods-use-this': 'off',
     'max-classes-per-file': 'off',
+    'no-shadow': 'off',
     'import/no-extraneous-dependencies':[
       'error',
       {

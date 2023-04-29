@@ -1,4 +1,5 @@
-import { LatestCommittedRepositoryDto } from '../github/dto/user-github-information.dto';
+import { LatestCommittedRepositoryDto } from '../../github/dto/user-github-information.dto';
+import SocialAccountProvider from './SocialAccountProvider';
 
 export interface IRepositoryLanguage {
   edges: {
@@ -66,6 +67,14 @@ export interface IUser {
     websiteUrl: string;
     repositories: {
       totalCount: number;
+    };
+    socialAccounts: {
+      nodes: [
+        {
+          provider: SocialAccountProvider;
+          url: string;
+        },
+      ];
     };
   };
 }

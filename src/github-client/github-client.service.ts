@@ -49,6 +49,12 @@ export class GithubClientService {
         repositories {
           totalCount
         }
+        socialAccounts(first: 4) {
+          nodes {
+            provider
+            url
+          }
+        }
       }
     }`);
   }

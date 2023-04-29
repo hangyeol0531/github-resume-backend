@@ -3,9 +3,9 @@ import { GithubClientService } from '../github-client/github-client.service';
 import {
   ContributionDto,
   LanguageRateDto,
-  LatestCommittedRepositoryDto,
   MonthlyContributionHistory,
   RepositoryDto,
+  SocialAccountDto,
   UserDto,
   UserGithubInformationDto,
 } from './dto/user-github-information.dto';
@@ -49,12 +49,20 @@ export class GithubService {
 
   private async getUser(userId: string): Promise<UserDto> {
     const { user } = await this.githubClientService.getUserInformation(userId);
+    const socialAccounts: SocialAccountDto[] = user.socialAccounts?.nodes.map(
+      ({ provider: name, url }) => ({
+        name,
+        url,
+      }),
+    );
+
     return {
       id: userId,
       name: user.name,
       introduce: user.bio,
       imageUrl: user.avatarUrl,
       contact: {
+        socialAccounts,
         email: user.email,
         websiteUrl: user.websiteUrl,
       },
