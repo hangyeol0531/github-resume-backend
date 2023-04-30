@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { YearAndMonthDateDto } from '../../common/dto/common.dto';
 import SocialAccountProvider from '../../github-client/types/SocialAccountProvider';
-import { UserCustomInformationDto } from './user-github-custom-information.dto';
 
 export class SocialAccountDto {
   @ApiProperty({
@@ -152,9 +151,4 @@ export class UserGithubInformationDto {
     description: '기여(활동) 정보',
   })
   contributions: ContributionDto;
-
-  @ApiProperty({
-    description: '유저의 커스텀 정보',
-  })
-  custom: UserCustomInformationDto;
 }

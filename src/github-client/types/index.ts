@@ -104,11 +104,3 @@ export interface ILatestPushedRepository {
     };
   };
 }
-
-export interface IReadmeText {
-  repository: {
-    object: {
-      text: string;
-    };
-  };
-}

@@ -12,7 +12,6 @@ import {
 import { IPinnedRepository, ILanguageSize } from '../github-client/types';
 import { YearAndMonthDateDto } from '../common/dto/common.dto';
 import { CommonService } from '../common/common.service';
-import { UserCustomInformationDto } from './dto/user-github-custom-information.dto';
 
 @Injectable()
 export class GithubService {
@@ -28,18 +27,16 @@ export class GithubService {
     if (!existsUser) {
       throw new NotFoundException('유저가 존재하지 않습니다.');
     }
-    const [user, repositories, languages, contributions, custom]: [
+    const [user, repositories, languages, contributions]: [
       user: UserDto,
       repositories: RepositoryDto[],
       languages: LanguageRateDto[],
       contributions: ContributionDto,
-      custom: UserCustomInformationDto,
     ] = await Promise.all([
       this.getUser(userId),
       this.getPinnedRepositories(userId),
       this.getLanguageRates(userId),
       this.getContributions(userId),
-      this.getCustomUserInformation(userId),
     ]);
 
     return {
@@ -47,7 +44,6 @@ export class GithubService {
       repositories,
       languages,
       contributions,
-      custom,
     };
   }
 
@@ -199,28 +195,5 @@ export class GithubService {
       });
     });
     return languageRates.sort((a, b) => b.rate - a.rate);
-  }
-
-  private async getCustomUserInformation(
-    userId: string,
-  ): Promise<UserCustomInformationDto> {
-    try {
-      const {
-        repository: {
-          object: { text },
-        },
-      } = await this.githubClientService.getCustomReadmeText(userId);
-      return this.convertToCustomInformationDto(text);
-    } catch (e) {
-      // custom repository 가 없는 경우에는 null 반환
-      return null;
-    }
-  }
-
-  private convertToCustomInformationDto(
-    text: string,
-  ): UserCustomInformationDto {
-    console.log(text);
-    return null;
   }
 }

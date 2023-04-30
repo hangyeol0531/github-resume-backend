@@ -8,7 +8,6 @@ import {
   IContributionCount,
   ILatestPushedRepository,
   IPinnedRepository,
-  IReadmeText,
   IRepository,
   IUser,
 } from './types';
@@ -161,19 +160,6 @@ export class GithubClientService {
           }
         }
       }
-   `);
-  }
-
-  async getCustomReadmeText(userId: string): Promise<IReadmeText> {
-    return this.githubGraphqlClient(`{
-        repository(owner: "${userId}", name: "github-resume") {
-          object(expression: "main:README.md") {
-          ... on Blob {
-            text
-          }
-        }
-      }
-    }
    `);
   }
 }
