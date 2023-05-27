@@ -1,0 +1,59 @@
+{
+  "user": {
+    "id": "emptyUser",
+    "name": null,
+    "introduce": null,
+    "imageUrl": "https://avatars.githubusercontent.com/u/16872945?v=4",
+    "contact": {
+      "socialAccounts": [],
+      "email": "",
+      "websiteUrl": null
+    },
+    "repositoryCount": 0
+  },
+  "repositories": [],
+  "languages": [],
+  "contributions": {
+    "year": 2023,
+    "commitCount": 0,
+    "monthlyContributionHistories": [
+      {
+        "contributionCount": 0,
+        "date": {
+          "year": 2023,
+          "month": 5
+        }
+      },
+      {
+        "contributionCount": 0,
+        "date": {
+          "year": 2023,
+          "month": 4
+        }
+      },
+      {
+        "contributionCount": 0,
+        "date": {
+          "year": 2023,
+          "month": 3
+        }
+      },
+      {
+        "contributionCount": 0,
+        "date": {
+          "year": 2023,
+          "month": 2
+        }
+      },
+      {
+        "contributionCount": 0,
+        "date": {
+          "year": 2023,
+          "month": 1
+        }
+      }
+    ],
+    "latestCommittedRepository": null,
+    "recentMonthRange": 5
+  }
+}

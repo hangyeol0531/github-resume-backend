@@ -1,0 +1,12 @@
+{
+  "user": {
+    "repositories": {
+      "nodes": [
+        {
+          "name": "slack-status-api",
+          "url": "https://github.com/hangyeol0531/slack-status-api"
+        }
+      ]
+    }
+  }
+}

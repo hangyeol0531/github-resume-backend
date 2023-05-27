@@ -130,25 +130,8 @@ export class GithubService {
     const monthRangeDateDtos: YearAndMonthDateDto[] =
       this.commonService.getYearAndMonthDateDto(this.recentMonthRange);
 
-    const monthlyContributionHistories: MonthlyContributionHistory[] =
-      await Promise.all(
-        monthRangeDateDtos.map(async (dateDto) => {
-          const {
-            user: {
-              contributionsCollection: {
-                contributionCalendar: { totalContributions: contributionCount },
-              },
-            },
-          } = await this.githubClientService.getContributionCount(
-            userId,
-            dateDto,
-          );
-          return {
-            contributionCount,
-            date: dateDto,
-          };
-        }),
-      );
+    const monthlyContributionHistories =
+      await this.getMonthlyContributionHistories(userId, monthRangeDateDtos);
 
     const {
       user: {
@@ -162,9 +145,33 @@ export class GithubService {
       year,
       commitCount,
       monthlyContributionHistories,
-      latestCommittedRepository,
+      latestCommittedRepository: latestCommittedRepository ?? null,
       recentMonthRange: this.recentMonthRange,
     };
+  }
+
+  public async getMonthlyContributionHistories(
+    userId: string,
+    monthRangeDateDtos: YearAndMonthDateDto[],
+  ): Promise<MonthlyContributionHistory[]> {
+    return Promise.all(
+      monthRangeDateDtos.map(async (dateDto) => {
+        const {
+          user: {
+            contributionsCollection: {
+              contributionCalendar: { totalContributions: contributionCount },
+            },
+          },
+        } = await this.githubClientService.getContributionCount(
+          userId,
+          dateDto,
+        );
+        return {
+          contributionCount,
+          date: dateDto,
+        };
+      }),
+    );
   }
 
   private static getLanguageRatesFromRepositories(

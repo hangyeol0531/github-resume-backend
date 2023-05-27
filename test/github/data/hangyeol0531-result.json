@@ -1,0 +1,170 @@
+{
+  "user": {
+    "id": "hangyeol0531",
+    "name": "Hangyeol Jeong",
+    "introduce": "Software Engineer",
+    "imageUrl": "https://avatars.githubusercontent.com/u/41174265?u=8e44bb51ead4259a24abf5a2ec3e31c918191b56&v=4",
+    "contact": {
+      "socialAccounts": [
+        {
+          "name": "LINKEDIN",
+          "url": "https://www.linkedin.com/in/hangyeol-jeong-9622b2185/"
+        },
+        {
+          "name": "GENERIC",
+          "url": "https://www.npmjs.com/~hangyeol_0531"
+        }
+      ],
+      "email": "jhan0531@naver.com",
+      "websiteUrl": null
+    },
+    "repositoryCount": 13
+  },
+  "repositories": [
+    {
+      "topics": [
+        "javascript",
+        "nodejs",
+        "npm",
+        "slack",
+        "typescript"
+      ],
+      "name": "slack-status-api",
+      "description": "NPM module to import Slack System Status Information",
+      "url": "https://github.com/hangyeol0531/slack-status-api",
+      "homepageUrl": "https://www.npmjs.com/package/slack-status-api",
+      "language": "TypeScript",
+      "starCount": 0,
+      "forkCount": 0,
+      "owner": "hangyeol0531"
+    },
+    {
+      "topics": [],
+      "name": "the-camp",
+      "description": "Client lib of the camp",
+      "url": "https://github.com/WhiteKiwi/the-camp",
+      "homepageUrl": null,
+      "language": "TypeScript",
+      "starCount": 5,
+      "forkCount": 1,
+      "owner": "WhiteKiwi"
+    },
+    {
+      "topics": [],
+      "name": "GSMin",
+      "description": "🎓 학교 👔 취업 커뮤니티 웹 사이트 💻  /안드로이드 앱 📱 ",
+      "url": "https://github.com/hangyeol0531/GSMin",
+      "homepageUrl": "",
+      "language": "JavaScript",
+      "starCount": 3,
+      "forkCount": 2,
+      "owner": "hangyeol0531"
+    },
+    {
+      "topics": [],
+      "name": "FSMin",
+      "description": "📸 💻  많은 사진을 용량에 따라 자동으로 분산 저장되는 웹 FSMin ☁️☁️",
+      "url": "https://github.com/hangyeol0531/FSMin",
+      "homepageUrl": "",
+      "language": "JavaScript",
+      "starCount": 0,
+      "forkCount": 1,
+      "owner": "hangyeol0531"
+    },
+    {
+      "topics": [],
+      "name": "M-Click",
+      "description": "👆M_Click :  반장 학급 관리 시스템 👇",
+      "url": "https://github.com/hangyeol0531/M-Click",
+      "homepageUrl": "",
+      "language": "C#",
+      "starCount": 4,
+      "forkCount": 1,
+      "owner": "hangyeol0531"
+    }
+  ],
+  "languages": [
+    {
+      "rate": 29,
+      "name": "TypeScript"
+    },
+    {
+      "rate": 18.6,
+      "name": "JavaScript"
+    },
+    {
+      "rate": 13.9,
+      "name": "Java"
+    },
+    {
+      "rate": 11.1,
+      "name": "EJS"
+    },
+    {
+      "rate": 8.5,
+      "name": "C#"
+    },
+    {
+      "rate": 7.1,
+      "name": "CSS"
+    },
+    {
+      "rate": 5.1,
+      "name": "C++"
+    },
+    {
+      "rate": 3.4,
+      "name": "HTML"
+    },
+    {
+      "rate": 3.1,
+      "name": "Python"
+    }
+  ],
+  "contributions": {
+    "year": 2023,
+    "commitCount": 54,
+    "monthlyContributionHistories": [
+      {
+        "contributionCount": 97,
+        "date": {
+          "year": 2023,
+          "month": 5
+        }
+      },
+      {
+        "contributionCount": 126,
+        "date": {
+          "year": 2023,
+          "month": 4
+        }
+      },
+      {
+        "contributionCount": 69,
+        "date": {
+          "year": 2023,
+          "month": 3
+        }
+      },
+      {
+        "contributionCount": 89,
+        "date": {
+          "year": 2023,
+          "month": 2
+        }
+      },
+      {
+        "contributionCount": 45,
+        "date": {
+          "year": 2023,
+          "month": 1
+        }
+      }
+    ],
+    "latestCommittedRepository": {
+      "name": "slack-status-api",
+      "url": "https://github.com/hangyeol0531/slack-status-api"
+    },
+    "recentMonthRange": 5
+  }
+}
