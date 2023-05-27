@@ -5,8 +5,12 @@ export class HttpCacheInterceptor extends CacheInterceptor {
   private allowCacheMethods = ['GET'];
 
   trackBy(context: ExecutionContext): string | undefined {
-    const { method, url } = context.switchToHttp().getRequest();
-    if (this.allowCacheMethods.includes(method)) return url;
-    return null;
+    const { method, url, ip } = context.switchToHttp().getRequest();
+    const isTestRequest = ip === '::ffff:127.0.0.1';
+
+    if (isTestRequest || !this.allowCacheMethods.includes(method)) {
+      return null;
+    }
+    return url;
   }
 }

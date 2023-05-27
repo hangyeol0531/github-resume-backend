@@ -12,6 +12,7 @@ import {
 import { IPinnedRepository, ILanguageSize } from '../github-client/types';
 import { YearAndMonthDateDto } from '../common/dto/common.dto';
 import { CommonService } from '../common/common.service';
+import { GithubMessage } from './github.message';
 
 @Injectable()
 export class GithubService {
@@ -25,7 +26,7 @@ export class GithubService {
   async getUserInformation(userId: string): Promise<UserGithubInformationDto> {
     const existsUser = await this.githubClientService.getExistsUser(userId);
     if (!existsUser) {
-      throw new NotFoundException('유저가 존재하지 않습니다.');
+      throw new NotFoundException(GithubMessage.NOT_FOUND_USER);
     }
     const [user, repositories, languages, contributions]: [
       user: UserDto,
@@ -129,25 +130,8 @@ export class GithubService {
     const monthRangeDateDtos: YearAndMonthDateDto[] =
       this.commonService.getYearAndMonthDateDto(this.recentMonthRange);
 
-    const monthlyContributionHistories: MonthlyContributionHistory[] =
-      await Promise.all(
-        monthRangeDateDtos.map(async (dateDto) => {
-          const {
-            user: {
-              contributionsCollection: {
-                contributionCalendar: { totalContributions: contributionCount },
-              },
-            },
-          } = await this.githubClientService.getContributionCount(
-            userId,
-            dateDto,
-          );
-          return {
-            contributionCount,
-            date: dateDto,
-          };
-        }),
-      );
+    const monthlyContributionHistories =
+      await this.getMonthlyContributionHistories(userId, monthRangeDateDtos);
 
     const {
       user: {
@@ -161,9 +145,33 @@ export class GithubService {
       year,
       commitCount,
       monthlyContributionHistories,
-      latestCommittedRepository,
+      latestCommittedRepository: latestCommittedRepository ?? null,
       recentMonthRange: this.recentMonthRange,
     };
+  }
+
+  public async getMonthlyContributionHistories(
+    userId: string,
+    monthRangeDateDtos: YearAndMonthDateDto[],
+  ): Promise<MonthlyContributionHistory[]> {
+    return Promise.all(
+      monthRangeDateDtos.map(async (dateDto) => {
+        const {
+          user: {
+            contributionsCollection: {
+              contributionCalendar: { totalContributions: contributionCount },
+            },
+          },
+        } = await this.githubClientService.getContributionCount(
+          userId,
+          dateDto,
+        );
+        return {
+          contributionCount,
+          date: dateDto,
+        };
+      }),
+    );
   }
 
   private static getLanguageRatesFromRepositories(

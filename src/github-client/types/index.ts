@@ -60,11 +60,11 @@ export interface ILanguageSize {
 
 export interface IUser {
   user: {
-    name: string;
+    name: string | null;
     avatarUrl: string;
-    bio: string;
+    bio: string | null;
     email: string;
-    websiteUrl: string;
+    websiteUrl: string | null;
     repositories: {
       totalCount: number;
     };

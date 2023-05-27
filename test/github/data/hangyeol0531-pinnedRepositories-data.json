@@ -1,0 +1,129 @@
+{
+  "user": {
+    "pinnedItems": {
+      "edges": [
+        {
+          "node": {
+            "name": "slack-status-api",
+            "description": "NPM module to import Slack System Status Information",
+            "primaryLanguage": {
+              "name": "TypeScript"
+            },
+            "repositoryTopics": {
+              "nodes": [
+                {
+                  "topic": {
+                    "name": "javascript"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "nodejs"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "npm"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "slack"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "typescript"
+                  }
+                }
+              ]
+            },
+            "stargazerCount": 0,
+            "forkCount": 0,
+            "url": "https://github.com/hangyeol0531/slack-status-api",
+            "homepageUrl": "https://www.npmjs.com/package/slack-status-api",
+            "owner": {
+              "login": "hangyeol0531"
+            }
+          }
+        },
+        {
+          "node": {
+            "name": "the-camp",
+            "description": "Client lib of the camp",
+            "primaryLanguage": {
+              "name": "TypeScript"
+            },
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "stargazerCount": 5,
+            "forkCount": 1,
+            "url": "https://github.com/WhiteKiwi/the-camp",
+            "homepageUrl": null,
+            "owner": {
+              "login": "WhiteKiwi"
+            }
+          }
+        },
+        {
+          "node": {
+            "name": "GSMin",
+            "description": "🎓 학교 👔 취업 커뮤니티 웹 사이트 💻  /안드로이드 앱 📱 ",
+            "primaryLanguage": {
+              "name": "JavaScript"
+            },
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "stargazerCount": 3,
+            "forkCount": 2,
+            "url": "https://github.com/hangyeol0531/GSMin",
+            "homepageUrl": "",
+            "owner": {
+              "login": "hangyeol0531"
+            }
+          }
+        },
+        {
+          "node": {
+            "name": "FSMin",
+            "description": "📸 💻  많은 사진을 용량에 따라 자동으로 분산 저장되는 웹 FSMin ☁️☁️",
+            "primaryLanguage": {
+              "name": "JavaScript"
+            },
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "stargazerCount": 0,
+            "forkCount": 1,
+            "url": "https://github.com/hangyeol0531/FSMin",
+            "homepageUrl": "",
+            "owner": {
+              "login": "hangyeol0531"
+            }
+          }
+        },
+        {
+          "node": {
+            "name": "M-Click",
+            "description": "👆M_Click :  반장 학급 관리 시스템 👇",
+            "primaryLanguage": {
+              "name": "C#"
+            },
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "stargazerCount": 4,
+            "forkCount": 1,
+            "url": "https://github.com/hangyeol0531/M-Click",
+            "homepageUrl": "",
+            "owner": {
+              "login": "hangyeol0531"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

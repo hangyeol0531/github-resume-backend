@@ -1,0 +1,39 @@
+{
+  "data": [
+    {
+      "contributionCount": 97,
+      "date": {
+        "year": 2023,
+        "month": 5
+      }
+    },
+    {
+      "contributionCount": 126,
+      "date": {
+        "year": 2023,
+        "month": 4
+      }
+    },
+    {
+      "contributionCount": 69,
+      "date": {
+        "year": 2023,
+        "month": 3
+      }
+    },
+    {
+      "contributionCount": 89,
+      "date": {
+        "year": 2023,
+        "month": 2
+      }
+    },
+    {
+      "contributionCount": 45,
+      "date": {
+        "year": 2023,
+        "month": 1
+      }
+    }
+  ]
+}
