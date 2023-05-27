@@ -1,13 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
+import { NotFoundException } from '@nestjs/common';
 import { GithubService } from '../../src/github/github.service';
 import { GithubClientModule } from '../../src/github-client/github-client.module';
 import { CommonModule } from '../../src/common/common.module';
 import githubConfig from '../../src/config/githubConfig';
-import { GithubClientService } from '../../src/github-client/github-client.service';
-import hangyeol0531Userdata from './data/hangyeol0531-user-data.json';
+import hangyeol0531UserData from './data/hangyeol0531-user-data.json';
 import { IUser } from '../../src/github-client/types';
+import { GithubMessage } from '../../src/github/github.message';
+import { GithubClientService } from '../../src/github-client/github-client.service';
+
+// jest.mock('../../src/github-client/github-client.service');
 
 describe('GithubService', () => {
   let githubService: GithubService;
@@ -30,7 +34,7 @@ describe('GithubService', () => {
           cache: true,
         }),
       ],
-      providers: [GithubService, GithubClientService],
+      providers: [GithubService],
     }).compile();
     githubService = module.get<GithubService>(GithubService);
     githubClientService = module.get<GithubClientService>(GithubClientService);
@@ -41,12 +45,21 @@ describe('GithubService', () => {
       expect(typeof githubService.getUserInformation).toBe('function');
     });
 
-    it('github 정보가 모두 들어있는 유저', async () => {
-      userId = 'hangyeol0531';
-      jest
-        .spyOn(githubClientService, 'getUserInformation')
-        .mockResolvedValue(hangyeol0531Userdata as IUser);
+    it('github 존재하지 않는 계정이라면 예외를 던진다.', async () => {
+      userId = 'notFoundUser';
+      jest.spyOn(githubClientService, 'getExistsUser').mockResolvedValue(false);
+      await expect(
+        githubService.getUserInformation(userId),
+      ).rejects.toThrowError(
+        new NotFoundException(GithubMessage.NOT_FOUND_USER),
+      );
+    });
 
+    it('github 정보가 모두 들어있는 유저 - hangyeol0531', async () => {
+      userId = 'hangyeol0531';
+      // jest
+      // .spyOn(githubClientService, 'getUserInformation')
+      // .mockResolvedValue(hangyeol0531UserData as IUser);
       const data = await githubService.getUserInformation(userId);
     });
   });
