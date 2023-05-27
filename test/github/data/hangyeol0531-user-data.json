@@ -1,0 +1,24 @@
+{
+  "user": {
+    "name": "Hangyeol Jeong",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/41174265?u=8e44bb51ead4259a24abf5a2ec3e31c918191b56&v=4",
+    "bio": "Software Engineer",
+    "email": "jhan0531@naver.com",
+    "websiteUrl": null,
+    "repositories": {
+      "totalCount": 13
+    },
+    "socialAccounts": {
+      "nodes": [
+        {
+          "provider": "LINKEDIN",
+          "url": "https://www.linkedin.com/in/hangyeol-jeong-9622b2185/"
+        },
+        {
+          "provider": "GENERIC",
+          "url": "https://www.npmjs.com/~hangyeol_0531"
+        }
+      ]
+    }
+  }
+}
