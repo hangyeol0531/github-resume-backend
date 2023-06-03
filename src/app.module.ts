@@ -31,6 +31,7 @@ import redisConfig from './config/redisConfig';
         store: redisStore,
         host: config.host,
         port: config.port,
+        ttl: 60 * 60,
       }),
     }),
   ],
