@@ -27,10 +27,10 @@ import redisConfig from './config/redisConfig';
       imports: [ConfigModule],
       inject: [ConfigService],
       isGlobal: true,
-      useFactory: (config: ConfigType<typeof redisConfig>) => ({
+      useFactory: (configService: ConfigService) => ({
         store: redisStore,
-        host: config.host,
-        port: config.port,
+        host: configService.get('REDIS_HOST'),
+        port: configService.get('REDIS_PORT'),
         ttl: 60 * 60,
       }),
     }),
