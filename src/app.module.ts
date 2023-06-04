@@ -1,11 +1,10 @@
 import {
-  CacheInterceptor,
   CacheModule,
   MiddlewareConsumer,
   Module,
   NestModule,
 } from '@nestjs/common';
-import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as redisStore from 'cache-manager-ioredis';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
