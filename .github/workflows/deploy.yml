@@ -2,7 +2,7 @@ name: deploy github-resume-backend
 
 on:
   push:
-    branches: [main]
+    branches: [feature/backend-1]
 
 jobs:
   build:
@@ -22,6 +22,7 @@ jobs:
 
       - name: Generate Environment Variables File for Production
         run: |
+          echo ls
           echo "VARIABLE=$VARIABLE" >> ./app/src/config/env/.env
         env:
           VARIABLE: ${{ secrets.VARIABLE }}
