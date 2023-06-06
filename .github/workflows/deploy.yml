@@ -13,7 +13,7 @@ jobs:
 
       - name: Generate Environment Variables File for Production
         run: |
-          echo "VARIABLE=$VARIABLE" >> ./src/config/env/.env
+          echo "$VARIABLE" >> ./src/config/env/.env
         env:
           VARIABLE: ${{ secrets.VARIABLE }}
 
