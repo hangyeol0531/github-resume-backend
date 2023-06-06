@@ -11,6 +11,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: github-resume-backend test
+        run: npm run test
+
       - name: Generate Environment Variables File for Production
         run: |
           echo "VARIABLE=$VARIABLE" >> ./src/config/env/.env

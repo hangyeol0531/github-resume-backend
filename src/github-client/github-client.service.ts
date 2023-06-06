@@ -21,6 +21,9 @@ export class GithubClientService {
     private readonly githubClient: HttpService,
     @Inject(githubConfig.KEY) private config: ConfigType<typeof githubConfig>,
   ) {
+    console.log(
+      `============ token : ${this.config.auth.token} ==============`,
+    );
     this.githubGraphqlClient = graphql.defaults({
       headers: {
         authorization: `token ${this.config.auth.token}`,
