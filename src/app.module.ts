@@ -26,20 +26,12 @@ import redisConfig from './config/redisConfig';
       imports: [ConfigModule],
       inject: [ConfigService],
       isGlobal: true,
-      useFactory: (configService: ConfigService) => {
-        console.log(
-          `========== host : ${configService.get('REDIS_HOST')} =======`,
-        );
-        console.log(
-          `========== port : ${configService.get('REDIS_PORT')} =======`,
-        );
-        return {
-          store: redisStore,
-          host: configService.get('REDIS_HOST'),
-          port: configService.get('REDIS_PORT'),
-          ttl: 60 * 60,
-        };
-      },
+      useFactory: (configService: ConfigService) => ({
+        store: redisStore,
+        host: configService.get('REDIS_HOST'),
+        port: configService.get('REDIS_PORT'),
+        ttl: 60 * 60,
+      }),
     }),
   ],
   controllers: [AppController],
