@@ -21,10 +21,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Generate Environment Variables File for Production
-          run: |
-            echo "VARIABLE=$VARIABLE" >> ./src/config/env/.env
-          env:
-            VARIABLE: ${{ secrets.VARIABLE }}
+        run: |
+          echo "VARIABLE=$VARIABLE" >> ./src/config/env/.env
+        env:
+          VARIABLE: ${{ secrets.VARIABLE }}
 
       - name: Docker Image Build And Push
         uses: docker/build-push-action@v2
