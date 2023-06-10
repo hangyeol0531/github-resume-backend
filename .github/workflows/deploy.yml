@@ -2,8 +2,7 @@ name: deploy github-resume-backend
 
 on:
   push:
-    tags:
-      branches: [main]
+    branches: [main]
 
 jobs:
   build:
