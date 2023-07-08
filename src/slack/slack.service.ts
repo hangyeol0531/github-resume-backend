@@ -16,7 +16,7 @@ export class SlackService {
   }
 
   public async sendSearchUser(users: string[]): Promise<void> {
-    const text = `${users.length}명의 유저가 조회되었습니다.`;
+    const text = `*${users.length}명의 유저가 조회되었습니다.*`;
     const attachments: IAttachment[] = users.map((user) => ({
       text: user,
       color: '#26A641',
