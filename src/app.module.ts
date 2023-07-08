@@ -12,13 +12,16 @@ import { GithubModule } from './github/github.module';
 import githubConfig from './config/githubConfig';
 import { LoggerMiddleware } from './logger/logger-middleware';
 import redisConfig from './config/redisConfig';
+import { BatchModule } from './batch/batch.module';
+import slackConfig from './config/slackConfig';
 
 @Module({
   imports: [
     GithubModule,
+    BatchModule,
     ConfigModule.forRoot({
       envFilePath: [`${__dirname}/config/env/.env`],
-      load: [githubConfig, redisConfig],
+      load: [githubConfig, redisConfig, slackConfig],
       isGlobal: true,
       cache: true,
     }),
