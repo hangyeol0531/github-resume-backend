@@ -13,10 +13,10 @@ jobs:
 
       - name: Generate Environment Variables File for Production
         run: |
-          echo "SEARCH_GITHUB_CLIENT_TOKEN=$SEARCH_GITHUB_CLIENT_TOKEN" >> ./src/config/env/.env
-          echo "REDIS_HOST=$REDIS_HOST" >> ./src/config/env/.env
-          echo "REDIS_PORT=$REDIS_PORT" >> ./src/config/env/.env
-          echo "SLACK_WEB_HOOK=$SLACK_WEB_HOOK" >> ./src/config/env/.env
+          echo "SEARCH_GITHUB_CLIENT_TOKEN="$SEARCH_GITHUB_CLIENT_TOKEN >> ./src/config/env/.env
+          echo "REDIS_HOST="$REDIS_HOST >> ./src/config/env/.env
+          echo "REDIS_PORT="$REDIS_PORT >> ./src/config/env/.env
+          echo "SLACK_WEB_HOOK="$SLACK_WEB_HOOK >> ./src/config/env/.env
         env:
           VARIABLE: ${{ secrets.VARIABLE }}
 
