@@ -65,6 +65,7 @@ export class GithubClientService {
       repositories(first: 100) {
         nodes {
           name
+          isFork
           languages(first: 100) {
             edges {
               node{
