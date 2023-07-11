@@ -30,9 +30,14 @@ export class GithubClientService {
 
   async getExistsUser(userId: string): Promise<boolean> {
     try {
-      const { status }: { status: number } =
-        await this.githubClient.axiosRef.get(userId);
-      return status === 200;
+      const {
+        user: { id },
+      } = await this.githubGraphqlClient(`{
+        user(login: "${userId}") {
+          id
+          }
+        }`);
+      return !!id;
     } catch (e) {
       return false;
     }
