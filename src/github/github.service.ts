@@ -107,14 +107,16 @@ export class GithubService {
     } = await this.githubClientService.getRepositoriesAndLanguages(userId);
 
     const languageSizes: ILanguageSize[] = [];
-    repositoryLanguages.forEach((repositoryLanguage) => {
-      repositoryLanguage.languages.edges.forEach((language) => {
-        languageSizes.push({
-          name: language.node.name,
-          size: language.size,
+    repositoryLanguages
+      .filter((repositoryLanguages) => !repositoryLanguages.isFork)
+      .forEach((repositoryLanguage) => {
+        repositoryLanguage.languages.edges.forEach((language) => {
+          languageSizes.push({
+            name: language.node.name,
+            size: language.size,
+          });
         });
       });
-    });
 
     return GithubService.getLanguageRatesFromRepositories(languageSizes);
   }

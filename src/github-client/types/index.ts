@@ -47,6 +47,7 @@ export interface IRepository {
     repositories: {
       nodes: {
         name: string;
+        isFork: boolean;
         languages: IRepositoryLanguage;
       }[];
     };
