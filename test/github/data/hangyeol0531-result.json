@@ -85,40 +85,12 @@
   ],
   "languages": [
     {
-      "rate": 29,
+      "rate": 67.9,
       "name": "TypeScript"
     },
     {
-      "rate": 18.6,
-      "name": "JavaScript"
-    },
-    {
-      "rate": 13.9,
+      "rate": 32.1,
       "name": "Java"
-    },
-    {
-      "rate": 11.1,
-      "name": "EJS"
-    },
-    {
-      "rate": 8.5,
-      "name": "C#"
-    },
-    {
-      "rate": 7.1,
-      "name": "CSS"
-    },
-    {
-      "rate": 5.1,
-      "name": "C++"
-    },
-    {
-      "rate": 3.4,
-      "name": "HTML"
-    },
-    {
-      "rate": 3.1,
-      "name": "Python"
     }
   ],
   "contributions": {

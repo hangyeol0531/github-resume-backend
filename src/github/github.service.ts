@@ -102,19 +102,17 @@ export class GithubService {
   private async getLanguageRates(userId: string) {
     const {
       user: {
-        repositories: { nodes: repositoryLanguages },
+        contributionsCollection: { commitContributionsByRepository },
       },
-    } = await this.githubClientService.getRepositoriesAndLanguages(userId);
+    } = await this.githubClientService.getRepositoryCommitsAndLanguages(userId);
 
     const languageSizes: ILanguageSize[] = [];
-    repositoryLanguages
-      .filter((repositoryLanguages) => !repositoryLanguages.isFork)
-      .forEach((repositoryLanguage) => {
-        repositoryLanguage.languages.edges.forEach((language) => {
-          languageSizes.push({
-            name: language.node.name,
-            size: language.size,
-          });
+    commitContributionsByRepository
+      .filter(({ repository }) => !!repository?.primaryLanguage?.name)
+      .forEach(({ repository, contributions }) => {
+        languageSizes.push({
+          name: repository.primaryLanguage.name,
+          size: contributions.totalCount,
         });
       });
 
@@ -188,7 +186,7 @@ export class GithubService {
         languageMap.set(languageSize.name, totalSize);
       }
       return languageMap;
-    }, new Map());
+    }, new Map<string, number>());
 
     const totalSize: number = Array.from(languagesMap.values()).reduce(
       (sum, value) => sum + value,

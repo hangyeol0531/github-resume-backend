@@ -1,221 +1,63 @@
 {
   "user": {
-    "repositories": {
-      "nodes": [
+    "contributionsCollection": {
+      "commitContributionsByRepository": [
         {
-          "name": "Clebe-Card",
-          "languages": {
-            "edges": [
-              {
-                "node": {
-                  "name": "JavaScript"
-                },
-                "size": 11074
-              },
-              {
-                "node": {
-                  "name": "CSS"
-                },
-                "size": 33753
-              },
-              {
-                "node": {
-                  "name": "EJS"
-                },
-                "size": 55296
-              }
-            ]
+          "repository": {
+            "primaryLanguage": {
+              "name": "TypeScript"
+            }
+          },
+          "contributions": {
+            "totalCount": 50
           }
         },
         {
-          "name": "Problert",
-          "languages": {
-            "edges": [
-              {
-                "node": {
-                  "name": "Java"
-                },
-                "size": 36873
-              }
-            ]
+          "repository": {
+            "primaryLanguage": {
+              "name": "Java"
+            }
+          },
+          "contributions": {
+            "totalCount": 20
           }
         },
         {
-          "name": "changeseat",
-          "languages": {
-            "edges": [
-              {
-                "node": {
-                  "name": "C++"
-                },
-                "size": 25378
-              }
-            ]
+          "repository": {
+            "primaryLanguage": {
+              "name": "Java"
+            }
+          },
+          "contributions": {
+            "totalCount": 6
           }
         },
         {
-          "name": "MoodCoin",
-          "languages": {
-            "edges": [
-              {
-                "node": {
-                  "name": "Python"
-                },
-                "size": 15478
-              },
-              {
-                "node": {
-                  "name": "JavaScript"
-                },
-                "size": 6350
-              }
-            ]
+          "repository": {
+            "primaryLanguage": null
+          },
+          "contributions": {
+            "totalCount": 4
           }
         },
         {
-          "name": "M-Click",
-          "languages": {
-            "edges": [
-              {
-                "node": {
-                  "name": "C#"
-                },
-                "size": 42490
-              }
-            ]
+          "repository": {
+            "primaryLanguage": {
+              "name": "TypeScript"
+            }
+          },
+          "contributions": {
+            "totalCount": 4
           }
         },
         {
-          "name": "GSMin",
-          "languages": {
-            "edges": [
-              {
-                "node": {
-                  "name": "JavaScript"
-                },
-                "size": 43526
-              },
-              {
-                "node": {
-                  "name": "HTML"
-                },
-                "size": 630
-              }
-            ]
-          }
-        },
-        {
-          "name": "hangyeol0531",
-          "languages": {
-            "edges": []
-          }
-        },
-        {
-          "name": "FSMin",
-          "languages": {
-            "edges": [
-              {
-                "node": {
-                  "name": "JavaScript"
-                },
-                "size": 30954
-              },
-              {
-                "node": {
-                  "name": "CSS"
-                },
-                "size": 1793
-              },
-              {
-                "node": {
-                  "name": "HTML"
-                },
-                "size": 2804
-              }
-            ]
-          }
-        },
-        {
-          "name": "the-camp",
-          "languages": {
-            "edges": [
-              {
-                "node": {
-                  "name": "JavaScript"
-                },
-                "size": 551
-              },
-              {
-                "node": {
-                  "name": "TypeScript"
-                },
-                "size": 43424
-              }
-            ]
-          }
-        },
-        {
-          "name": "JPA-Basic-Study",
-          "languages": {
-            "edges": [
-              {
-                "node": {
-                  "name": "Java"
-                },
-                "size": 13960
-              }
-            ]
-          }
-        },
-        {
-          "name": "Querydsl-Study",
-          "languages": {
-            "edges": [
-              {
-                "node": {
-                  "name": "Java"
-                },
-                "size": 18369
-              }
-            ]
-          }
-        },
-        {
-          "name": "slack-status-api",
-          "languages": {
-            "edges": [
-              {
-                "node": {
-                  "name": "TypeScript"
-                },
-                "size": 4275
-              },
-              {
-                "node": {
-                  "name": "JavaScript"
-                },
-                "size": 158
-              }
-            ]
-          }
-        },
-        {
-          "name": "github-profile-summary-cards",
-          "languages": {
-            "edges": [
-              {
-                "node": {
-                  "name": "TypeScript"
-                },
-                "size": 96680
-              },
-              {
-                "node": {
-                  "name": "HTML"
-                },
-                "size": 13625
-              }
-            ]
+          "repository": {
+            "primaryLanguage": {
+              "name": "TypeScript"
+            }
+          },
+          "contributions": {
+            "totalCount": 1
           }
         }
       ]

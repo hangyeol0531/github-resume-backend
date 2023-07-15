@@ -18,7 +18,7 @@ import {
   ICommitCount,
   ILatestPushedRepository,
   IPinnedRepository,
-  IRepository,
+  IRepositoryAndLanguage,
   IUser,
 } from '../src/github-client/types';
 import { MonthlyContributionHistory } from '../src/github/dto/user-github-information.dto';
@@ -67,6 +67,8 @@ describe('AppController (e2e)', () => {
     const githubService = app.get<GithubService>(GithubService);
     const githubClientService =
       app.get<GithubClientService>(GithubClientService);
+
+    jest.spyOn(githubClientService, 'getExistsUser').mockResolvedValue(true);
     // user
     jest
       .spyOn(githubClientService, 'getUserInformation')
@@ -79,8 +81,10 @@ describe('AppController (e2e)', () => {
 
     // repositoriesAndLanguages
     jest
-      .spyOn(githubClientService, 'getRepositoriesAndLanguages')
-      .mockResolvedValue(hangyeol0531RepositoriesAndLanguages as IRepository);
+      .spyOn(githubClientService, 'getRepositoryCommitsAndLanguages')
+      .mockResolvedValue(
+        hangyeol0531RepositoriesAndLanguages as IRepositoryAndLanguage,
+      );
 
     // contributions
     jest
