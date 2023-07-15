@@ -27,7 +27,7 @@ import {
   ICommitCount,
   ILatestPushedRepository,
   IPinnedRepository,
-  IRepository,
+  IRepositoryAndLanguage,
   IUser,
 } from '../../src/github-client/types';
 import { GithubMessage } from '../../src/github/github.message';
@@ -109,9 +109,9 @@ describe('GithubService', () => {
 
         // repositoriesAndLanguages
         jest
-          .spyOn(githubClientService, 'getRepositoriesAndLanguages')
+          .spyOn(githubClientService, 'getRepositoryCommitsAndLanguages')
           .mockResolvedValue(
-            hangyeol0531RepositoriesAndLanguages as IRepository,
+            hangyeol0531RepositoriesAndLanguages as IRepositoryAndLanguage,
           );
 
         // contributions
@@ -172,8 +172,10 @@ describe('GithubService', () => {
 
         // repositoriesAndLanguages
         jest
-          .spyOn(githubClientService, 'getRepositoriesAndLanguages')
-          .mockResolvedValue(emptyUserRepositoriesAndLanguages as IRepository);
+          .spyOn(githubClientService, 'getRepositoryCommitsAndLanguages')
+          .mockResolvedValue(
+            emptyUserRepositoriesAndLanguages as IRepositoryAndLanguage,
+          );
 
         // contributions
         jest

@@ -8,7 +8,7 @@ import {
   IContributionCount,
   ILatestPushedRepository,
   IPinnedRepository,
-  IRepository,
+  IRepositoryAndLanguage,
   IUser,
 } from './types';
 import { YearAndMonthDateDto } from '../common/dto/common.dto';
@@ -34,9 +34,10 @@ export class GithubClientService {
         user: { id },
       } = await this.githubGraphqlClient(`{
         user(login: "${userId}") {
-          id
+            id
           }
-        }`);
+        }
+      `);
       return !!id;
     } catch (e) {
       return false;
@@ -64,20 +65,20 @@ export class GithubClientService {
     }`);
   }
 
-  async getRepositoriesAndLanguages(userId: string): Promise<IRepository> {
+  async getRepositoryCommitsAndLanguages(
+    userId: string,
+  ): Promise<IRepositoryAndLanguage> {
     return this.githubGraphqlClient(`{
     user(login: "${userId}") {
-      repositories(first: 100) {
-        nodes {
-          name
-          isFork
-          languages(first: 100) {
-            edges {
-              node{
-                name
-              }
-              size
+      contributionsCollection {
+        commitContributionsByRepository(maxRepositories: 100) {
+          repository {
+            primaryLanguage {
+              name
             }
+          }
+          contributions {
+              totalCount
           }
         }
       }

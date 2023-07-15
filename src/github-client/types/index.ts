@@ -1,13 +1,9 @@
 import { LatestCommittedRepositoryDto } from '../../github/dto/user-github-information.dto';
 import SocialAccountProvider from './SocialAccountProvider';
 
-export interface IRepositoryLanguage {
-  edges: {
-    node: {
-      name: string;
-    };
-    size: number;
-  }[];
+export interface ILanguageSize {
+  name: string;
+  size: number;
 }
 
 interface IPinnedRepositoryItem {
@@ -42,21 +38,21 @@ export interface IPinnedRepository {
   };
 }
 
-export interface IRepository {
+export interface IRepositoryAndLanguage {
   user: {
-    repositories: {
-      nodes: {
-        name: string;
-        isFork: boolean;
-        languages: IRepositoryLanguage;
+    contributionsCollection: {
+      commitContributionsByRepository: {
+        repository: {
+          primaryLanguage: {
+            name: string;
+          };
+        };
+        contributions: {
+          totalCount: number;
+        };
       }[];
     };
   };
-}
-
-export interface ILanguageSize {
-  name: string;
-  size: number;
 }
 
 export interface IUser {

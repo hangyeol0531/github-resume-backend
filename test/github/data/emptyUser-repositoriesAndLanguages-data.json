@@ -1,7 +1,7 @@
 {
   "user": {
-    "repositories": {
-      "nodes": []
+    "contributionsCollection": {
+      "commitContributionsByRepository": []
     }
   }
 }
