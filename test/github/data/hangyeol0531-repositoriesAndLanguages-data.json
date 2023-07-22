@@ -5,7 +5,8 @@
         {
           "repository": {
             "primaryLanguage": {
-              "name": "TypeScript"
+              "name": "TypeScript",
+              "color": "#3178c6"
             }
           },
           "contributions": {
@@ -15,7 +16,8 @@
         {
           "repository": {
             "primaryLanguage": {
-              "name": "Java"
+              "name": "Java",
+              "color": "#b07219"
             }
           },
           "contributions": {
@@ -25,7 +27,8 @@
         {
           "repository": {
             "primaryLanguage": {
-              "name": "Java"
+              "name": "Java",
+              "color": "#b07219"
             }
           },
           "contributions": {
@@ -43,7 +46,8 @@
         {
           "repository": {
             "primaryLanguage": {
-              "name": "TypeScript"
+              "name": "TypeScript",
+              "color": "#3178c6"
             }
           },
           "contributions": {
@@ -53,7 +57,8 @@
         {
           "repository": {
             "primaryLanguage": {
-              "name": "TypeScript"
+              "name": "TypeScript",
+              "color": "#3178c6"
             }
           },
           "contributions": {

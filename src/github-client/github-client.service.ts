@@ -75,6 +75,7 @@ export class GithubClientService {
           repository {
             primaryLanguage {
               name
+              color
             }
           }
           contributions {

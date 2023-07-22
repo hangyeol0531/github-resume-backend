@@ -1,8 +1,9 @@
 import { LatestCommittedRepositoryDto } from '../../github/dto/user-github-information.dto';
 import SocialAccountProvider from './SocialAccountProvider';
 
-export interface ILanguageSize {
+export interface ILanguageInfo {
   name: string;
+  color: string;
   size: number;
 }
 
@@ -45,6 +46,7 @@ export interface IRepositoryAndLanguage {
         repository: {
           primaryLanguage: {
             name: string;
+            color: string;
           };
         };
         contributions: {

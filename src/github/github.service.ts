@@ -9,7 +9,7 @@ import {
   UserDto,
   UserGithubInformationDto,
 } from './dto/user-github-information.dto';
-import { IPinnedRepository, ILanguageSize } from '../github-client/types';
+import { IPinnedRepository, ILanguageInfo } from '../github-client/types';
 import { YearAndMonthDateDto } from '../common/dto/common.dto';
 import { CommonService } from '../common/common.service';
 import { GithubMessage } from './github.message';
@@ -99,19 +99,20 @@ export class GithubService {
     });
   }
 
-  private async getLanguageRates(userId: string) {
+  private async getLanguageRates(userId: string): Promise<LanguageRateDto[]> {
     const {
       user: {
         contributionsCollection: { commitContributionsByRepository },
       },
     } = await this.githubClientService.getRepositoryCommitsAndLanguages(userId);
 
-    const languageSizes: ILanguageSize[] = [];
+    const languageSizes: ILanguageInfo[] = [];
     commitContributionsByRepository
       .filter(({ repository }) => !!repository?.primaryLanguage?.name)
       .forEach(({ repository, contributions }) => {
         languageSizes.push({
           name: repository.primaryLanguage.name,
+          color: repository.primaryLanguage.color,
           size: contributions.totalCount,
         });
       });
@@ -175,18 +176,10 @@ export class GithubService {
   }
 
   private static getLanguageRatesFromRepositories(
-    languageSizes: ILanguageSize[],
+    languageSizes: ILanguageInfo[],
   ): LanguageRateDto[] {
-    const languagesMap = languageSizes.reduce((languageMap, languageSize) => {
-      if (!languageMap.has(languageSize.name)) {
-        languageMap.set(languageSize.name, languageSize.size);
-      } else {
-        const totalSize =
-          languageMap.get(languageSize.name) + languageSize.size;
-        languageMap.set(languageSize.name, totalSize);
-      }
-      return languageMap;
-    }, new Map<string, number>());
+    const colorsMap = this.getColorsMap(languageSizes);
+    const languagesMap = this.getLanguagesMap(languageSizes);
 
     const totalSize: number = Array.from(languagesMap.values()).reduce(
       (sum, value) => sum + value,
@@ -200,8 +193,35 @@ export class GithubService {
       languageRates.push({
         rate,
         name: key,
+        color: colorsMap.get(key),
       });
     });
     return languageRates.sort((a, b) => b.rate - a.rate);
+  }
+
+  private static getColorsMap(
+    languageSizes: ILanguageInfo[],
+  ): Map<string, string> {
+    return languageSizes.reduce((colorMap, languageInfo) => {
+      if (!colorMap.has(languageInfo.color)) {
+        colorMap.set(languageInfo.name, languageInfo.color);
+      }
+      return colorMap;
+    }, new Map<string, string>());
+  }
+
+  private static getLanguagesMap(
+    languageInfo: ILanguageInfo[],
+  ): Map<string, number> {
+    return languageInfo.reduce((languageMap, languageInfo) => {
+      if (!languageMap.has(languageInfo.name)) {
+        languageMap.set(languageInfo.name, languageInfo.size);
+      } else {
+        const totalSize =
+          languageMap.get(languageInfo.name) + languageInfo.size;
+        languageMap.set(languageInfo.name, totalSize);
+      }
+      return languageMap;
+    }, new Map<string, number>());
   }
 }

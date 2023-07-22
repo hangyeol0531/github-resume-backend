@@ -88,6 +88,9 @@ export class LanguageRateDto {
 
   @ApiProperty({ description: '언어 사용률' })
   rate: number;
+
+  @ApiProperty({ description: '언어 색깔' })
+  color: string;
 }
 
 export class MonthlyContributionHistory {

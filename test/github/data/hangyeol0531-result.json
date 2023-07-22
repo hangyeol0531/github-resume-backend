@@ -86,11 +86,13 @@
   "languages": [
     {
       "rate": 67.9,
-      "name": "TypeScript"
+      "name": "TypeScript",
+      "color": "#3178c6"
     },
     {
       "rate": 32.1,
-      "name": "Java"
+      "name": "Java",
+      "color": "#b07219"
     }
   ],
   "contributions": {
