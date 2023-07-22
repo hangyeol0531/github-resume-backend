@@ -17,10 +17,13 @@ export class SlackService {
 
   public async sendSearchUser(users: string[]): Promise<void> {
     const text = `*${users.length}명의 유저가 조회되었습니다.*`;
-    const attachments: IAttachment[] = users.map((user) => ({
-      text: user,
-      color: '#26A641',
-    }));
+    const content = users.reduce((content, user) => `${content + user}\n`, '');
+    const attachments: IAttachment[] = [
+      {
+        text: content,
+        color: '#26A641',
+      },
+    ];
     await this.send(text, attachments);
   }
 
