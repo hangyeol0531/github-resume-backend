@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img src = "https://github.com/hangyeol0531/github-resume-backend/assets/41174265/26ac17dd-db52-4da2-8041-7fc148961c46">
+  <img src = "https://github.com/hangyeol0531/github-resume-backend/assets/41174265/633977ff-49a4-4f79-9b52-e04c7ca0d56e">
 </p>
 
 
