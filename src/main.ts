@@ -4,8 +4,11 @@ import { useSwagger } from './swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // TODO cors 임시 전체 허용
-  app.enableCors();
+  app.enableCors({
+    origin: process.env.CLIENT_URL,
+    methods: ['GET'],
+    credentials: true,
+  });
   useSwagger(app);
   await app.listen(3000);
 }

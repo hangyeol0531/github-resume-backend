@@ -18,6 +18,7 @@ jobs:
           echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" >> ./src/config/env/.env
           echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> ./src/config/env/.env
           echo "SLACK_WEB_HOOK=${{ secrets.SLACK_WEB_HOOK }}" >> ./src/config/env/.env
+          echo "CLIENT_URL=${{ secrets.CLIENT_URL }}" >> ./src/config/env/.env
         env:
           VARIABLE: ${{ secrets.VARIABLE }}
 
