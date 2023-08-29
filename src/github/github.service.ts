@@ -9,7 +9,7 @@ import {
   UserDto,
   UserGithubInformationDto,
 } from './dto/user-github-information.dto';
-import { IPinnedRepository, ILanguageInfo } from '../github-client/types';
+import { ILanguageInfo, IPinnedRepository } from '../github-client/types';
 import { YearAndMonthDateDto } from '../common/dto/common.dto';
 import { CommonService } from '../common/common.service';
 import { GithubMessage } from './github.message';
@@ -69,7 +69,21 @@ export class GithubService {
       },
       repositoryCount: user?.repositories?.totalCount,
       followerCount: user?.followers?.totalCount,
+      daysSinceAccountCreation: this.getDaysSinceAccountCreation(
+        user.createdAt,
+      ),
     };
+  }
+
+  private getDaysSinceAccountCreation(createdAt: string): number {
+    const createdAtDate = new Date(createdAt).valueOf();
+    const currentDate = new Date(
+      new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }),
+    ).valueOf();
+    const days = Math.round(
+      (currentDate - createdAtDate) / (1000 * 60 * 60 * 24),
+    );
+    return Object.is(days, -0) ? 0 : days;
   }
 
   private async getPinnedRepositories(

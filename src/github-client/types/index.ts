@@ -78,6 +78,7 @@ export interface IUser {
         },
       ];
     };
+    createdAt: string;
   };
 }
 
