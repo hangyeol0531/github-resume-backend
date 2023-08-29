@@ -64,6 +64,7 @@ export class GithubClientService {
             url
           }
         }
+        createdAt
       }
     }`);
   }
