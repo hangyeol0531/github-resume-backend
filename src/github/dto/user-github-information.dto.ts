@@ -48,6 +48,9 @@ export class UserDto {
 
   @ApiProperty({ description: '레파지토리 개수' })
   repositoryCount: number;
+
+  @ApiProperty({ description: '팔로워 수' })
+  followerCount: number;
 }
 
 export class RepositoryDto {

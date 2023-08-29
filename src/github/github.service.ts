@@ -68,6 +68,7 @@ export class GithubService {
         websiteUrl: user.websiteUrl,
       },
       repositoryCount: user?.repositories?.totalCount,
+      followerCount: user?.followers?.totalCount,
     };
   }
 

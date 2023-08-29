@@ -67,6 +67,9 @@ export interface IUser {
     repositories: {
       totalCount: number;
     };
+    followers: {
+      totalCount: number;
+    };
     socialAccounts: {
       nodes: [
         {
