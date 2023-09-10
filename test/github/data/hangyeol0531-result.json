@@ -1,5 +1,7 @@
 {
   "user": {
+    "startCount": 10,
+    "forkCount": 45,
     "id": "hangyeol0531",
     "name": "Hangyeol Jeong",
     "introduce": "Software Engineer",

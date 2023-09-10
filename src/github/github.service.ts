@@ -57,7 +57,23 @@ export class GithubService {
       }),
     );
 
+    const repositories = user.repositories.nodes.filter(
+      (repository) => !repository.isFork,
+    );
+
+    const startCount = repositories.reduce(
+      (result, repo) => result + repo.stargazerCount,
+      0,
+    );
+
+    const forkCount = repositories.reduce(
+      (result, repo) => result + repo.forkCount,
+      0,
+    );
+
     return {
+      startCount,
+      forkCount,
       id: userId,
       name: user.name,
       introduce: user.bio,

@@ -52,8 +52,14 @@ export class GithubClientService {
         bio
         email
         websiteUrl
-        repositories {
-          totalCount
+        repositories(first : 100) {
+          totalCount,
+          nodes{
+            name,
+            isFork,
+            forkCount,
+            stargazerCount
+          }
         }
         followers{
           totalCount

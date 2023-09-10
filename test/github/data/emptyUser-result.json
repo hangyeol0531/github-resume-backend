@@ -1,5 +1,7 @@
 {
   "user": {
+    "startCount": 0,
+    "forkCount": 0,
     "id": "emptyUser",
     "name": null,
     "introduce": null,

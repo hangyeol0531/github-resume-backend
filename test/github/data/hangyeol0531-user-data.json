@@ -6,7 +6,39 @@
     "email": "jhan0531@naver.com",
     "websiteUrl": null,
     "repositories": {
-      "totalCount": 13
+      "totalCount": 13,
+      "nodes": [
+        {
+          "name": "test_repository1",
+          "isFork": false,
+          "forkCount": 5,
+          "stargazerCount": 3
+        },
+        {
+          "name": "test_repository2",
+          "isFork": true,
+          "forkCount": 10,
+          "stargazerCount": 1
+        },
+        {
+          "name": "test_repository3",
+          "isFork": false,
+          "forkCount": 15,
+          "stargazerCount": 2
+        },
+        {
+          "name": "test_repository4",
+          "isFork": true,
+          "forkCount": 20,
+          "stargazerCount": 3
+        },
+        {
+          "name": "test_repository5",
+          "isFork": false,
+          "forkCount": 25,
+          "stargazerCount": 5
+        }
+      ]
     },
     "followers": {
       "totalCount": 38

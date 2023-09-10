@@ -6,7 +6,8 @@
     "email": "",
     "websiteUrl": null,
     "repositories": {
-      "totalCount": 0
+      "totalCount": 0,
+      "nodes": []
     },
     "followers": {
       "totalCount": 0
