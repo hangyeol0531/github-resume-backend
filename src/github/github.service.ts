@@ -77,13 +77,17 @@ export class GithubService {
 
   private getDaysSinceAccountCreation(createdAt: string): number {
     const createdAtDate = new Date(createdAt).valueOf();
-    const currentDate = new Date(
-      new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }),
-    ).valueOf();
+    const currentDate = this.getCurrentDate();
     const days = Math.round(
       (currentDate - createdAtDate) / (1000 * 60 * 60 * 24),
     );
-    return Object.is(days, -0) ? 0 : days;
+    return Math.abs(days);
+  }
+
+  public getCurrentDate(): number {
+    return new Date(
+      new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }),
+    ).valueOf();
   }
 
   private async getPinnedRepositories(
