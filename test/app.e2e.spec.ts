@@ -29,8 +29,10 @@ import redisConfig from '../src/config/redisConfig';
 describe('AppController (e2e)', () => {
   let app: INestApplication;
   let userId: string;
+  let githubService: GithubService;
+  let githubClientService: GithubClientService;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         HttpModule,
@@ -55,6 +57,11 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    githubService = app.get<GithubService>(GithubService);
+    githubClientService = app.get<GithubClientService>(GithubClientService);
+
+    // 테스트 코드 시점은 2023-08-30 시점으로 지정
+    jest.spyOn(githubService, 'getCurrentDate').mockReturnValue(1693353600000);
     await app.init();
   });
 
@@ -64,10 +71,6 @@ describe('AppController (e2e)', () => {
 
   it('/github/user/:userId (GET)', () => {
     userId = 'hangyeol0531';
-    const githubService = app.get<GithubService>(GithubService);
-    const githubClientService =
-      app.get<GithubClientService>(GithubClientService);
-
     jest.spyOn(githubClientService, 'getExistsUser').mockResolvedValue(true);
     // user
     jest

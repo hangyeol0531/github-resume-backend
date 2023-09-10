@@ -6,10 +6,15 @@
     "email": "",
     "websiteUrl": null,
     "repositories": {
+      "totalCount": 0,
+      "nodes": []
+    },
+    "followers": {
       "totalCount": 0
     },
     "socialAccounts": {
       "nodes": []
-    }
+    },
+    "createdAt": "2023-08-30T00:00:00Z"
   }
 }

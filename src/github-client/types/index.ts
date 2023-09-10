@@ -66,6 +66,15 @@ export interface IUser {
     websiteUrl: string | null;
     repositories: {
       totalCount: number;
+      nodes: {
+        name: string;
+        isFork: boolean;
+        forkCount: number;
+        stargazerCount: number;
+      }[];
+    };
+    followers: {
+      totalCount: number;
     };
     socialAccounts: {
       nodes: [
@@ -75,6 +84,7 @@ export interface IUser {
         },
       ];
     };
+    createdAt: string;
   };
 }
 

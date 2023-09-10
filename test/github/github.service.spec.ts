@@ -44,7 +44,7 @@ describe('GithubService', () => {
   let githubClientService: GithubClientService;
   let userId: string;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         GithubClientModule,
@@ -64,6 +64,9 @@ describe('GithubService', () => {
     }).compile();
     githubService = module.get<GithubService>(GithubService);
     githubClientService = module.get<GithubClientService>(GithubClientService);
+
+    // 테스트 코드 시점은 2023-08-30 시점으로 지정
+    jest.spyOn(githubService, 'getCurrentDate').mockReturnValue(1693353600000);
   });
 
   describe('should have a githubService getUserInformation', () => {

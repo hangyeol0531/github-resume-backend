@@ -52,7 +52,16 @@ export class GithubClientService {
         bio
         email
         websiteUrl
-        repositories {
+        repositories(first : 100) {
+          totalCount,
+          nodes{
+            name,
+            isFork,
+            forkCount,
+            stargazerCount
+          }
+        }
+        followers{
           totalCount
         }
         socialAccounts(first: 4) {
@@ -61,6 +70,7 @@ export class GithubClientService {
             url
           }
         }
+        createdAt
       }
     }`);
   }
