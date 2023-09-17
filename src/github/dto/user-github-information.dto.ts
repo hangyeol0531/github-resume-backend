@@ -52,6 +52,9 @@ export class UserDto {
   @ApiProperty({ description: '팔로워 수' })
   followerCount: number;
 
+  @ApiProperty({ description: '팔로잉 수' })
+  followingCount: number;
+
   @ApiProperty({ description: '계정 생성 후 지난 일' })
   daysSinceAccountCreation: number;
 }
