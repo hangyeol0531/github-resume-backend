@@ -64,6 +64,9 @@ export class GithubClientService {
         followers{
           totalCount
         }
+        following{
+          totalCount
+        }
         socialAccounts(first: 4) {
           nodes {
             provider

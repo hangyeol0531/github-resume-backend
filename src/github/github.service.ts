@@ -85,6 +85,7 @@ export class GithubService {
       },
       repositoryCount: user?.repositories?.totalCount,
       followerCount: user?.followers?.totalCount,
+      followingCount: user?.following?.totalCount,
       daysSinceAccountCreation: this.getDaysSinceAccountCreation(
         user.createdAt,
       ),

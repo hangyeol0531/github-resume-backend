@@ -43,6 +43,9 @@
     "followers": {
       "totalCount": 38
     },
+    "following": {
+      "totalCount": 33
+    },
     "socialAccounts": {
       "nodes": [
         {

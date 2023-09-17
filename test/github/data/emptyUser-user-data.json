@@ -12,6 +12,9 @@
     "followers": {
       "totalCount": 0
     },
+    "following": {
+      "totalCount": 0
+    },
     "socialAccounts": {
       "nodes": []
     },
