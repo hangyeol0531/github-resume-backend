@@ -70,6 +70,9 @@ export interface IUser {
     followers: {
       totalCount: number;
     };
+    following: {
+      totalCount: number;
+    };
     socialAccounts: {
       nodes: [
         {
