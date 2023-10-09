@@ -37,7 +37,7 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: linux/amd64
-          push: true
+          push: true₩
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/github-resume-backend
   deploy:
     needs: build
@@ -55,5 +55,5 @@ jobs:
           docker stop github-resume-backend && docker rm github-resume-backend && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/github-resume-backend:latest
 
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/github-resume-backend:latest
-
-          docker run -d -p 3000:3000 --name github-resume-backend --add-host=host.docker.internal:host-gateway ${{ secrets.DOCKERHUB_USERNAME }}/github-resume-backend:latest
+          
+          docker run -d -p 3000:3000 --name github-resume-backend --add-host=host.docker.internal:host-gateway jhan0531/github-resume-backend:latest
