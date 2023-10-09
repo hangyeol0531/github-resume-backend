@@ -42,7 +42,7 @@ jobs:
   deploy:
     needs: build
     name: Deploy
-    runs-on: [self-hosted, github-resume]
+    runs-on: [github-resume]
     steps:
       - name: Login to ghcr
         uses: docker/login-action@v1
