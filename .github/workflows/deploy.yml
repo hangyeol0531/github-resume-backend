@@ -54,6 +54,6 @@ jobs:
         run: |
           docker stop github-resume-backend && docker rm github-resume-backend && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/github-resume-backend:latest
 
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/github-resume-backend:latest
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/github-resume-backend:latest --platform linux/arm/v8
 
           docker run -d -p 3000:3000 --name github-resume-backend --add-host=host.docker.internal:host-gateway ${{ secrets.DOCKERHUB_USERNAME }}/github-resume-backend:latest
