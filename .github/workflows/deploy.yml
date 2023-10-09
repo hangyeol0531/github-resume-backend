@@ -37,7 +37,7 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: linux/amd64
-          push: true₩
+          push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/github-resume-backend
   deploy:
     needs: build
