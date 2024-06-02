@@ -23,7 +23,10 @@ export class GithubService {
 
   private readonly recentMonthRange = 5;
 
-  async getUserInformation(userId: string): Promise<UserGithubInformationDto> {
+  async getUserInformation(
+    userId: string,
+    year: number,
+  ): Promise<UserGithubInformationDto> {
     const existsUser = await this.githubClientService.getExistsUser(userId);
     if (!existsUser) {
       throw new NotFoundException(GithubMessage.NOT_FOUND_USER);
@@ -37,7 +40,7 @@ export class GithubService {
       this.getUser(userId),
       this.getPinnedRepositories(userId),
       this.getLanguageRates(userId),
-      this.getContributions(userId),
+      this.getContributions(userId, year),
     ]);
 
     return {
@@ -156,8 +159,10 @@ export class GithubService {
     return GithubService.getLanguageRatesFromRepositories(languageSizes);
   }
 
-  private async getContributions(userId: string): Promise<ContributionDto> {
-    const year: number = new Date().getFullYear();
+  private async getContributions(
+    userId: string,
+    year: number,
+  ): Promise<ContributionDto> {
     const {
       user: {
         contributionsCollection: { totalCommitContributions: commitCount },

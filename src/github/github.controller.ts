@@ -35,6 +35,9 @@ export class GithubController {
   async getUserInformation(
     @Param('userId') userId,
   ): Promise<UserGithubInformationDto> {
-    return this.githubService.getUserInformation(userId);
+    return this.githubService.getUserInformation(
+      userId,
+      new Date().getFullYear(),
+    );
   }
 }

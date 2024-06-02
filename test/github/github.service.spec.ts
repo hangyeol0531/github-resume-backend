@@ -82,7 +82,7 @@ describe('GithubService', () => {
     });
     it('github 존재하지 않는 계정이라면 예외를 던진다.', async () => {
       await expect(
-        githubService.getUserInformation(userId),
+        githubService.getUserInformation(userId, 2023),
       ).rejects.toThrowError(
         new NotFoundException(GithubMessage.NOT_FOUND_USER),
       );
@@ -134,7 +134,7 @@ describe('GithubService', () => {
             hangyeol0531LatestPushedRepository as ILatestPushedRepository,
           );
 
-        result = await githubService.getUserInformation(userId);
+        result = await githubService.getUserInformation(userId, 2023);
       });
 
       it('user - hangyeol0531', async () => {
@@ -197,7 +197,7 @@ describe('GithubService', () => {
             emptyUserLatestPushedRepository as ILatestPushedRepository,
           );
 
-        result = await githubService.getUserInformation(userId);
+        result = await githubService.getUserInformation(userId, 2023);
       });
 
       it('user - emptyUser', async () => {
