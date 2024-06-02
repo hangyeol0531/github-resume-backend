@@ -43,7 +43,6 @@ describe('AppController (e2e)', () => {
     app = moduleFixture.createNestApplication();
     githubService = app.get<GithubService>(GithubService);
 
-    // 테스트 코드 시점은 2023-08-30 시점으로 지정
     await app.init();
   });
 

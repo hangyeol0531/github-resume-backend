@@ -24,4 +24,10 @@ export class CommonService {
     }
     return yearAndMonthDateDtos;
   }
+
+  getCurrentDate(): number {
+    return new Date(
+      new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }),
+    ).valueOf();
+  }
 }

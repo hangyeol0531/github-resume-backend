@@ -26,6 +26,7 @@ export class GithubService {
   async getUserInformation(
     userId: string,
     year: number,
+    currentDate: number,
   ): Promise<UserGithubInformationDto> {
     const existsUser = await this.githubClientService.getExistsUser(userId);
     if (!existsUser) {
@@ -37,7 +38,7 @@ export class GithubService {
       languages: LanguageRateDto[],
       contributions: ContributionDto,
     ] = await Promise.all([
-      this.getUser(userId),
+      this.getUser(userId, currentDate),
       this.getPinnedRepositories(userId),
       this.getLanguageRates(userId),
       this.getContributions(userId, year),
@@ -51,7 +52,7 @@ export class GithubService {
     };
   }
 
-  private async getUser(userId: string): Promise<UserDto> {
+  private async getUser(userId: string, currentDate: number): Promise<UserDto> {
     const { user } = await this.githubClientService.getUserInformation(userId);
     const socialAccounts: SocialAccountDto[] = user.socialAccounts?.nodes.map(
       ({ provider: name, url }) => ({
@@ -91,23 +92,20 @@ export class GithubService {
       followingCount: user?.following?.totalCount,
       daysSinceAccountCreation: this.getDaysSinceAccountCreation(
         user.createdAt,
+        currentDate,
       ),
     };
   }
 
-  private getDaysSinceAccountCreation(createdAt: string): number {
+  private getDaysSinceAccountCreation(
+    createdAt: string,
+    currentDate: number,
+  ): number {
     const createdAtDate = new Date(createdAt).valueOf();
-    const currentDate = this.getCurrentDate();
     const days = Math.round(
       (currentDate - createdAtDate) / (1000 * 60 * 60 * 24),
     );
     return Math.abs(days);
-  }
-
-  public getCurrentDate(): number {
-    return new Date(
-      new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }),
-    ).valueOf();
   }
 
   private async getPinnedRepositories(

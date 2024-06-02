@@ -15,11 +15,15 @@ import { GithubService } from './github.service';
 import { GithubUserValidationPipe } from './github.user.validation.pipe';
 import { UserGithubInformationDto } from './dto/user-github-information.dto';
 import { HttpCacheInterceptor } from '../interceptors/http-cache.interceptor';
+import { CommonService } from '../common/common.service';
 
 @ApiTags('github')
 @Controller('github')
 export class GithubController {
-  constructor(private readonly githubService: GithubService) {}
+  constructor(
+    private readonly githubService: GithubService,
+    private readonly commonService: CommonService,
+  ) {}
 
   @Get('/user/:userId')
   @UsePipes(GithubUserValidationPipe)
@@ -38,6 +42,7 @@ export class GithubController {
     return this.githubService.getUserInformation(
       userId,
       new Date().getFullYear(),
+      this.commonService.getCurrentDate(),
     );
   }
 }
